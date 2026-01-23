@@ -8,32 +8,27 @@ const REFRESH_TOKEN_SECRET: Secret = process.env.REFRESH_TOKEN_SECRET || 'your-r
 const REFRESH_TOKEN_EXPIRES_IN: SignOptions['expiresIn'] = (process.env.REFRESH_TOKEN_EXPIRES_IN || '7d') as SignOptions['expiresIn'];
 
 export class AuthUtils {
-    // Hash password
     static async hashPassword(password: string): Promise<string> {
         const salt = await bcrypt.genSalt(10);
         return bcrypt.hash(password, salt);
     }
 
-    // Compare password
     static async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
         return bcrypt.compare(password, hashedPassword);
     }
 
-    // Generate Access Token
     static generateAccessToken(payload: JWTPayload): string {
         return jwt.sign({ ...payload }, JWT_SECRET, {
             expiresIn: JWT_EXPIRES_IN,
         });
     }
 
-    // Generate Refresh Token
     static generateRefreshToken(payload: JWTPayload): string {
         return jwt.sign({ ...payload }, REFRESH_TOKEN_SECRET, {
             expiresIn: REFRESH_TOKEN_EXPIRES_IN,
         });
     }
 
-    // Verify Access Token
     static verifyToken(token: string): JWTPayload {
         try {
             return jwt.verify(token, JWT_SECRET) as JWTPayload;
@@ -42,7 +37,6 @@ export class AuthUtils {
         }
     }
 
-    // Verify Refresh Token
     static verifyRefreshToken(token: string): JWTPayload {
         try {
             return jwt.verify(token, REFRESH_TOKEN_SECRET) as JWTPayload;
@@ -51,8 +45,6 @@ export class AuthUtils {
         }
     }
 
-
-    // Extract token from Authorization header
     static extractToken(authHeader: string | undefined): string | null {
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return null;

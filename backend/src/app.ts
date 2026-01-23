@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import db from './config/database';
 import redis from './config/redis';
 import authRoutes from './routes/auth.routes';
+import bookingRoutes from './routes/booking.routes';
 import cookieParser from 'cookie-parser';
 
 console.log('🔥 SERVER START FILE:', __filename);
@@ -12,7 +13,6 @@ console.log('🔥 SERVER START FILE:', __filename);
 dotenv.config();
 
 const app: Application = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
@@ -47,7 +47,7 @@ app.get('/test-root', (req, res) => {
 
 // Routes will be added here
 // app.use('/api/rooms', roomRoutes);
-// app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/api/auth', authRoutes);
 app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
 
@@ -65,11 +65,6 @@ app.use((req, res) => {
         success: false,
         message: 'Route not found'
     });
-});
-
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV}`);
 });
 
 export default app;
