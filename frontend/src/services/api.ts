@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Room, RoomFilterState, Booking } from '../types/room';
 
 let storeAccessToken: string | null = null;
 let storeRefreshTokenFunction: (() => Promise<string | null>) | null = null;
@@ -69,5 +70,37 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+export const getRooms = async (filters: RoomFilterState) => {
+    const params: any = {};
+    if (filters.capacity) params.capacity = filters.capacity;
+    if (filters.floor) params.floor = filters.floor;
+    if (filters.equipment.length > 0) params.equipment = filters.equipment.join(',');
+    if (filters.start_time) params.start_time = filters.start_time.toISOString();
+    if (filters.end_time) params.end_time = filters.end_time.toISOString();
+
+    const response = await api.get<{ data: Room[] }>('/rooms', { params });
+    return response.data.data;
+};
+
+export const getAmenities = async () => {
+    const response = await api.get<{ data: string[] }>('/rooms/equipment');
+    return response.data.data;
+};
+
+export const getUserBookings = async () => {
+    const response = await api.get<Booking[]>('/bookings');
+    return response.data;
+};
+
+export const cancelBooking = async (id: number) => {
+    const response = await api.delete(`/bookings/${id}`);
+    return response.data;
+};
+
+export const createBooking = async (data: { room_id: number, start_time: string, end_time: string }) => {
+    const response = await api.post('/bookings', data);
+    return response.data;
+};
 
 export default api;

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS rooms (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     capacity INTEGER NOT NULL,
+    floor INTEGER NOT NULL,
     equipment TEXT[], 
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

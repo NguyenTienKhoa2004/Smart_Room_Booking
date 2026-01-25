@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import db from './config/database';
 import redis from './config/redis';
 import authRoutes from './routes/auth.routes';
+import roomRoutes from './routes/room.routes';
 import bookingRoutes from './routes/booking.routes';
 import cookieParser from 'cookie-parser';
 
@@ -46,7 +47,7 @@ app.get('/test-root', (req, res) => {
 });
 
 // Routes will be added here
-// app.use('/api/rooms', roomRoutes);
+app.use('/api/rooms', roomRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/auth', authRoutes);
 app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
