@@ -8,6 +8,7 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 
 ### 🔐 1. Authentication & Security
 - **JWT-based Authentication**: Secure stateless authentication.
+- **Follow refresh and access token strategy**: Secure stateless authentication.
 - **Role-Based Access Control (RBAC)**: Distinct permissions for `Admin` and `User`.
 - **Comprehensive Testing**: Robust unit tests for the authentication module.
 
@@ -29,8 +30,7 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 - **Performance Tuning**: Continuous monitoring and optimization of bottlenecks.
 
 ### 🔔 5. Real-time Notifications & Background Jobs
-- **Live Updates**: Real-time room status updates via **WebSockets/SSE**.
-- **Automated Cleanup**: Background jobs to auto-release expired or unconfirmed rooms.
+-**Reminder**: Notify the user shortly before the booking starts.
 - **Queue-based Emails**: Scalable email notifications using a background message queue.
 
 ### 📊 6. Monitoring & Administration
@@ -43,10 +43,10 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 
 ## 🛠 Tech Stack
 
-- **Runtime**: [Node.js](https://nodejs.org/) (TypeScript)
-- **Database**: [PostgreSQL](https://www.postgresql.org/) (Data Persistence)
-- **Cache & Concurrency**: [Redis](https://redis.io/) (Caching & Distributed Locks)
-- **Deployment**: [Docker](https://www.docker.com/) & Docker Compose
+- **Runtime**: [Node.js](https://nodejs.org/) 
+- **Database**: [PostgreSQL](https://www.postgresql.org/) 
+- **Cache & Concurrency**: [Redis](https://redis.io/) 
+- **Deployment**: [Docker](https://www.docker.com/) 
 - **Testing**: Artillery, JMeter, Jest
 
 ---

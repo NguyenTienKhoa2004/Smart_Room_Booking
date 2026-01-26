@@ -1,6 +1,8 @@
 import db from '../config/database';
 import { CreateBookingDTO, BookingResponse } from '../types/booking.types';
 import { RoomService } from './room.service';
+import { EmailService } from './email.service';
+import { SSEService } from './sse.service';
 
 
 export class BookingService {
@@ -22,12 +24,13 @@ export class BookingService {
         try {
             await client.query('BEGIN');
 
+            await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
+
             const checkQuery = `
             SELECT id FROM bookings 
             WHERE room_id = $1 
             AND start_time < $3 
             AND end_time > $2
-            FOR UPDATE
         `;
             const existing = await client.query(checkQuery, [room_id, start_time, end_time]);
 
@@ -44,10 +47,32 @@ export class BookingService {
 
             await client.query('COMMIT');
 
-            // Invalidate room cache
             await RoomService.invalidateCache();
 
-            return result.rows[0];
+            const infoQuery = `
+                SELECT u.email, r.name as room_name 
+                FROM users u 
+                JOIN rooms r ON r.id = $2
+                WHERE u.id = $1
+            `;
+            const infoResult = await client.query(infoQuery, [user_id, room_id]);
+            const { email, room_name } = infoResult.rows[0];
+
+            const booking = result.rows[0];
+
+            EmailService.sendBookingConfirmation(email, {
+                roomName: room_name,
+                startTime: start_time,
+                endTime: end_time,
+                title: title
+            }).catch(err => console.error('Failed to send confirmation email:', err));
+
+            SSEService.sendToUser(user_id, 'booking_confirmed', {
+                message: `Booking for ${room_name} confirmed!`,
+                booking
+            });
+
+            return booking;
 
         } catch (error) {
             await client.query('ROLLBACK');
@@ -88,11 +113,12 @@ export class BookingService {
         try {
             await client.query('BEGIN');
 
+            await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
+
             const collisionCheck = await client.query(
                 `SELECT id FROM bookings 
              WHERE room_id = $1 AND id != $2 
-             AND start_time < $3 AND end_time > $4
-             FOR UPDATE`,
+             AND start_time < $3 AND end_time > $4`,
                 [room_id, id, end, start]
             );
 
@@ -111,7 +137,6 @@ export class BookingService {
 
             await client.query('COMMIT');
 
-            // Invalidate room cache
             await RoomService.invalidateCache();
 
             return result.rows[0];
@@ -132,7 +157,6 @@ export class BookingService {
             throw new Error('Booking not found or unauthorized');
         }
 
-        // Invalidate room cache
         await RoomService.invalidateCache();
 
         return result.rows[0];

@@ -7,6 +7,7 @@ import redis from './config/redis';
 import authRoutes from './routes/auth.routes';
 import roomRoutes from './routes/room.routes';
 import bookingRoutes from './routes/booking.routes';
+import notificationRoutes from './routes/notification.routes';
 import cookieParser from 'cookie-parser';
 
 console.log('🔥 SERVER START FILE:', __filename);
@@ -54,6 +55,7 @@ app.get('/test-root', (req, res) => {
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
 // app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
