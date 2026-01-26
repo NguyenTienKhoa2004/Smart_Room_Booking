@@ -1,9 +1,11 @@
 export interface Booking {
     id: number;
     room_id: number;
+    user_id: number;
+    title: string;
     start_time: Date;
     end_time: Date;
-    user_id: number;
+    status: string;
     created_at: Date;
     updated_at: Date;
 }
@@ -11,15 +13,17 @@ export interface Booking {
 export interface BookingResponse {
     id: number;
     room_id: number;
+    user_id: number;
+    title: string;
     start_time: Date;
     end_time: Date;
-    user_id: number;
     created_at: Date;
 }
 
 export interface CreateBookingDTO {
     room_id: number;
+    user_id: number;
+    title: string;
     start_time: Date;
     end_time: Date;
-    user_id: number;
 }

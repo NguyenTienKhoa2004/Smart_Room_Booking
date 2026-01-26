@@ -6,7 +6,7 @@ let storeRefreshTokenFunction: (() => Promise<string | null>) | null = null;
 let storeLogoutFunction: (() => void) | null = null;
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'http://localhost:5000/api/v1',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const cancelBooking = async (id: number) => {
     return response.data;
 };
 
-export const createBooking = async (data: { room_id: number, start_time: string, end_time: string }) => {
+export const createBooking = async (data: { room_id: number, title: string, start_time: string, end_time: string }) => {
     const response = await api.post('/bookings', data);
     return response.data;
 };

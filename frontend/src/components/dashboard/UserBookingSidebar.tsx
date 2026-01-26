@@ -42,8 +42,9 @@ const UserBookingSidebar: React.FC<UserBookingSidebarProps> = ({ bookings, onCan
                         <div key={booking.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200 relative group">
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <h4 className="font-semibold text-gray-900">Room {booking.room_id}</h4> {/* Ideally we fetch room name too */}
-                                    <p className="text-xs text-gray-500 mt-1">
+                                    <h4 className="font-semibold text-gray-900">{booking.title || `Room ${booking.room_id}`}</h4>
+                                    <p className="text-xs text-indigo-600 font-medium mb-1">Room {booking.room_id}</p>
+                                    <p className="text-xs text-gray-500">
                                         {formatDate(booking.start_time)}
                                     </p>
                                     <p className="text-xs text-gray-400">

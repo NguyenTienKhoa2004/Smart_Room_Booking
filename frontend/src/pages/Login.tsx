@@ -24,7 +24,7 @@ const Login = () => {
             const response = await api.post('/auth/login', formData);
             const { accessToken, user } = response.data.data;
             login(accessToken, user);
-            navigate('/'); // Navigate back to home
+            navigate('/');
         } catch (err: any) {
             setError(err.response?.data?.message || 'Failed to sign in');
         } finally {

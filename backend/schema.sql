@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS rooms (
     capacity INTEGER NOT NULL,
     floor INTEGER NOT NULL,
     equipment TEXT[], 
+    image_url VARCHAR(255),
+    status VARCHAR(20) DEFAULT 'available',
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -33,3 +35,10 @@ CREATE TABLE IF NOT EXISTS bookings (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Indexes for performance optimization
+-- 1. Optimize availability checks / overlapping booking detection
+CREATE INDEX IF NOT EXISTS idx_bookings_availability ON bookings (room_id, start_time, end_time);
+
+-- 2. Optimize fetching bookings for a specific user
+CREATE INDEX IF NOT EXISTS idx_bookings_user_id ON bookings (user_id);

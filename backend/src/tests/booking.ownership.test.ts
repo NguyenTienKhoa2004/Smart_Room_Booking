@@ -28,6 +28,7 @@ describe('BookingService Logic and Ownership', () => {
         const createData = {
             room_id: roomId,
             start_time: futureDate,
+            title: 'Booking Test',
             end_time: endDate,
             user_id: userId
         };
@@ -99,6 +100,7 @@ describe('BookingService Logic and Ownership', () => {
         const updateData = {
             room_id: roomId,
             start_time: futureDate,
+            title: 'Booking Test',
             end_time: endDate,
             user_id: userId
         };

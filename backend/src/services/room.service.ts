@@ -1,4 +1,5 @@
 import db from '../config/database';
+import redis from '../config/redis';
 import { Room, RoomFilter } from '../types/room.types';
 
 export class RoomService {
@@ -60,8 +61,26 @@ export class RoomService {
 
         query += ` ORDER BY r.name ASC`;
 
+        const cacheKey = `rooms:available:${JSON.stringify(filters)}`;
+        const cachedData = await redis.get(cacheKey);
+
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+
         const result = await db.query(query, params);
+
+        // Cache for 5 minutes (300 seconds)
+        await redis.set(cacheKey, JSON.stringify(result.rows), 'EX', 300);
+
         return result.rows;
+    }
+
+    static async invalidateCache(): Promise<void> {
+        const keys = await redis.keys('rooms:available:*');
+        if (keys.length > 0) {
+            await redis.del(keys);
+        }
     }
 
     static async getAmenities(): Promise<string[]> {

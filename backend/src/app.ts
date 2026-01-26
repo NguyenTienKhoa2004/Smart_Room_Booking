@@ -47,10 +47,14 @@ app.get('/test-root', (req, res) => {
 });
 
 // Routes will be added here
-app.use('/api/rooms', roomRoutes);
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/auth', authRoutes);
-app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
+// app.use('/api/rooms', roomRoutes);
+// app.use('/api/bookings', bookingRoutes);
+// app.use('/api/auth', authRoutes);
+
+app.use('/api/v1/rooms', roomRoutes);
+app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/auth', authRoutes);
+// app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Error:', err);

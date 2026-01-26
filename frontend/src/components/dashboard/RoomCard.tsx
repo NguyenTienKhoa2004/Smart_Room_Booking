@@ -18,8 +18,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-            <div className="p-5">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col h-full">
+            <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                     <div>
                         <h3 className="text-xl font-bold text-gray-900">{room.name}</h3>
@@ -69,7 +69,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
                 <button
                     onClick={() => onBook(room)}
                     disabled={room.status === 'in_use' || room.status === 'maintenance'}
-                    className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
+                    className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white mt-auto
                         ${room.status === 'available' ? 'bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500' : 'bg-gray-400 cursor-not-allowed'}
                     `}
                 >

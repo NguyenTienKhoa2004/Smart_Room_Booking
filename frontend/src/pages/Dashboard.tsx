@@ -12,13 +12,11 @@ const Dashboard: React.FC = () => {
     const { user, isLoading: authLoading } = useAuth();
     const navigate = useNavigate();
 
-    // State
     const [rooms, setRooms] = useState<Room[]>([]);
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [isLoadingRooms, setIsLoadingRooms] = useState(false);
     const [isLoadingBookings, setIsLoadingBookings] = useState(false);
 
-    // Filters
     const [filters, setFilters] = useState<RoomFilterState>({
         equipment: [],
         capacity: undefined,
@@ -27,7 +25,6 @@ const Dashboard: React.FC = () => {
         end_time: undefined
     });
 
-    // Helper to fetch data
     const fetchRooms = async () => {
         setIsLoadingRooms(true);
         try {
@@ -44,7 +41,6 @@ const Dashboard: React.FC = () => {
         setIsLoadingBookings(true);
         try {
             const data = await getUserBookings();
-            // Sort by start time
             const sorted = (data || []).sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
             setBookings(sorted);
         } catch (error) {
@@ -54,7 +50,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Initial load and filter change
     useEffect(() => {
         if (!authLoading && user) {
             fetchRooms();
@@ -69,16 +64,19 @@ const Dashboard: React.FC = () => {
             return;
         }
 
-        if (confirm(`Book ${room.name} from ${filters.start_time.toLocaleString()} to ${filters.end_time.toLocaleString()}?`)) {
+        const title = prompt(`Enter a title for your booking of ${room.name} from ${filters.start_time.toLocaleTimeString()} to ${filters.end_time.toLocaleTimeString()}:`);
+
+        if (title) {
             try {
                 await createBooking({
                     room_id: room.id,
+                    title,
                     start_time: filters.start_time.toISOString(),
                     end_time: filters.end_time.toISOString()
                 });
                 alert('Booking successful!');
-                fetchRooms(); // Refresh room status
-                fetchBookings(); // Refresh sidebar
+                fetchRooms();
+                fetchBookings();
             } catch (error: any) {
                 alert(`Booking failed: ${error.response?.data?.message || 'Unknown error'}`);
             }

@@ -6,19 +6,20 @@ export class BookingController {
     // POST /api/bookings
     static async createBooking(req: Request, res: Response): Promise<void> {
         try {
-            const { room_id, start_time, end_time } = req.body;
+            const { room_id, title, start_time, end_time } = req.body;
             const user_id = req.user?.userId;
 
-            if (!room_id || !start_time || !end_time || !user_id) {
+            if (!room_id || !title || !start_time || !end_time || !user_id) {
                 res.status(400).json({
                     success: false,
-                    message: 'Room ID, start time, end time, and user ID are required',
+                    message: 'Room ID, title, start time, end time, and user ID are required',
                 });
                 return;
             }
 
             const result = await BookingService.createBooking({
                 room_id,
+                title,
                 start_time,
                 end_time,
                 user_id,
@@ -89,18 +90,19 @@ export class BookingController {
             }
 
             ValidationUtils.validateBookingId(id);
-            const { room_id, start_time, end_time } = req.body;
+            const { room_id, title, start_time, end_time } = req.body;
 
-            if (!room_id || !start_time || !end_time) {
+            if (!room_id || !title || !start_time || !end_time) {
                 res.status(400).json({
                     success: false,
-                    message: 'Room ID, start time, and end time are required',
+                    message: 'Room ID, title, start time, and end time are required',
                 });
                 return;
             }
 
             const result = await BookingService.updateBooking(Number(id), user_id, {
                 room_id,
+                title,
                 start_time,
                 end_time,
                 user_id,
