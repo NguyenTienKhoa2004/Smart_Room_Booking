@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { BookingService } from '../services/booking.service';
 import { ValidationUtils } from '../utils/validation.utils';
+import { getIO } from '../socket';
 
 export class BookingController {
-    // POST /api/bookings
     static async createBooking(req: Request, res: Response): Promise<void> {
         try {
             const { room_id, title, start_time, end_time } = req.body;
@@ -25,6 +25,8 @@ export class BookingController {
                 user_id,
             });
 
+            getIO().emit('room_status_update', { room_id: result.room_id });
+
             res.status(201).json(result);
         } catch (error: any) {
             console.error('Create booking error:', error);
@@ -35,7 +37,6 @@ export class BookingController {
         }
     }
 
-    // GET /api/bookings
     static async getBookings(req: Request, res: Response): Promise<void> {
         try {
             const user_id = req.user?.userId;
@@ -54,7 +55,6 @@ export class BookingController {
         }
     }
 
-    // GET /api/bookings/:id
     static async getBooking(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
@@ -78,7 +78,6 @@ export class BookingController {
         }
     }
 
-    // PUT /api/bookings/:id
     static async updateBooking(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
@@ -100,6 +99,8 @@ export class BookingController {
                 return;
             }
 
+            const oldBooking = await BookingService.getBooking(Number(id), user_id);
+
             const result = await BookingService.updateBooking(Number(id), user_id, {
                 room_id,
                 title,
@@ -107,6 +108,11 @@ export class BookingController {
                 end_time,
                 user_id,
             });
+
+            if (oldBooking && oldBooking.room_id !== result.room_id) {
+                getIO().emit('room_status_update', { room_id: oldBooking.room_id });
+            }
+            getIO().emit('room_status_update', { room_id: result.room_id });
 
             res.status(200).json(result);
         } catch (error: any) {
@@ -118,7 +124,6 @@ export class BookingController {
         }
     }
 
-    // DELETE /api/bookings/:id
     static async deleteBooking(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
@@ -131,6 +136,7 @@ export class BookingController {
 
             ValidationUtils.validateBookingId(id);
             const result = await BookingService.deleteBooking(Number(id), user_id);
+            getIO().emit('room_status_update', { room_id: result.room_id });
             res.status(200).json(result);
         } catch (error: any) {
             console.error('Delete booking error:', error);

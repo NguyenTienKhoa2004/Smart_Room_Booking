@@ -8,7 +8,10 @@ import authRoutes from './routes/auth.routes';
 import roomRoutes from './routes/room.routes';
 import bookingRoutes from './routes/booking.routes';
 import notificationRoutes from './routes/notification.routes';
+import adminRoutes from './routes/admin';
+
 import cookieParser from 'cookie-parser';
+import { apiLimiter } from './middleware/rate-limiter.middleware';
 
 console.log('🔥 SERVER START FILE:', __filename);
 
@@ -52,10 +55,12 @@ app.get('/test-root', (req, res) => {
 // app.use('/api/bookings', bookingRoutes);
 // app.use('/api/auth', authRoutes);
 
+app.use('/api/v1', apiLimiter);
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/admin', adminRoutes);
 // app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

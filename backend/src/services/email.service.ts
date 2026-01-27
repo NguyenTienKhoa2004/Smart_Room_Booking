@@ -77,4 +77,58 @@ export class EmailService {
             console.error('Error sending reminder email:', error);
         }
     }
+
+    static async sendBanNotification(to: string, fullName: string) {
+        const mailOptions = {
+            from: process.env.EMAIL_FROM,
+            to,
+            subject: 'Account Suspended - Smart Room Booking',
+            html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                    <h2 style="color: #d32f2f;">Account Suspended</h2>
+                    <p>Dear ${fullName},</p>
+                    <p>Your account has been suspended by an administrator. You will no longer be able to access the Smart Room Booking system.</p>
+                    <p>If you believe this is a mistake, please contact our support team.</p>
+                    <p style="margin-top: 30px; color: #666;">
+                        Best regards,<br/>
+                        Smart Room Booking Team
+                    </p>
+                </div>
+            `,
+        };
+
+        try {
+            await this.transporter.sendMail(mailOptions);
+            console.log(`Ban notification email sent to ${to}`);
+        } catch (error) {
+            console.error('Error sending ban notification email:', error);
+        }
+    }
+
+    static async sendUnbanNotification(to: string, fullName: string) {
+        const mailOptions = {
+            from: process.env.EMAIL_FROM,
+            to,
+            subject: 'Account Restored - Smart Room Booking',
+            html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                    <h2 style="color: #388e3c;">Account Restored</h2>
+                    <p>Dear ${fullName},</p>
+                    <p>Good news! Your account has been restored by an administrator. You can now access the Smart Room Booking system again.</p>
+                    <p>Welcome back!</p>
+                    <p style="margin-top: 30px; color: #666;">
+                        Best regards,<br/>
+                        Smart Room Booking Team
+                    </p>
+                </div>
+            `,
+        };
+
+        try {
+            await this.transporter.sendMail(mailOptions);
+            console.log(`Unban notification email sent to ${to}`);
+        } catch (error) {
+            console.error('Error sending unban notification email:', error);
+        }
+    }
 }

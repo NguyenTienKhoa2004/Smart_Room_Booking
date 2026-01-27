@@ -16,6 +16,7 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 - **Intelligent Availability Engine**: Logic-driven room availability checks.
 - **Race Condition Protection**: Implementation of **Optimistic Locking** at the database level.
 - **Business Rule Validation**: Automated checks for overlapping bookings and operational hours.
+- **Real-time Status Updates**: **Socket.io** integration to push room status changes to the frontend without page refreshes.
 - **Quality Assurance**: Integrated Unit & Integration tests for the booking flow.
 
 ### 🔍 3. Advanced Management & Search
@@ -30,7 +31,7 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 - **Performance Tuning**: Continuous monitoring and optimization of bottlenecks.
 
 ### 🔔 5. Real-time Notifications & Background Jobs
--**Reminder**: Notify the user shortly before the booking starts.
+- **Reminder**: Notify the user shortly before the booking starts.
 - **Queue-based Emails**: Scalable email notifications using a background message queue.
 
 ### 📊 6. Monitoring & Administration
@@ -46,6 +47,7 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 - **Runtime**: [Node.js](https://nodejs.org/) 
 - **Database**: [PostgreSQL](https://www.postgresql.org/) 
 - **Cache & Concurrency**: [Redis](https://redis.io/) 
+- **Real-time Engine**: [Socket.io](https://socket.io/)
 - **Deployment**: [Docker](https://www.docker.com/) 
 - **Testing**: Artillery, JMeter, Jest
 

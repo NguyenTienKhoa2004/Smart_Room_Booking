@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { RoomService } from '../services/room.service';
 
 export class RoomController {
-    // GET /api/rooms
     static async getRooms(req: Request, res: Response): Promise<void> {
         try {
             const { capacity, floor, start_time, end_time } = req.query;
@@ -30,7 +29,6 @@ export class RoomController {
         }
     }
 
-    // GET /api/rooms/equipment
     static async getAmenities(req: Request, res: Response): Promise<void> {
         try {
             const equipment = await RoomService.getAmenities();

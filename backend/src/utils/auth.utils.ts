@@ -1,11 +1,12 @@
 import bcrypt from 'bcryptjs';
-import jwt, { Secret, SignOptions } from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
+
 import { JWTPayload } from '../types/user.types';
 
-const JWT_SECRET: Secret = process.env.JWT_SECRET || 'your-secret-key';
-const JWT_EXPIRES_IN: SignOptions['expiresIn'] = (process.env.JWT_EXPIRES_IN || '15m') as SignOptions['expiresIn'];
-const REFRESH_TOKEN_SECRET: Secret = process.env.REFRESH_TOKEN_SECRET || 'your-refresh-secret-key';
-const REFRESH_TOKEN_EXPIRES_IN: SignOptions['expiresIn'] = (process.env.REFRESH_TOKEN_EXPIRES_IN || '7d') as SignOptions['expiresIn'];
+const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_EXPIRES_IN: SignOptions['expiresIn'] = (process.env.JWT_EXPIRES_IN) as SignOptions['expiresIn'];
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
+const REFRESH_TOKEN_EXPIRES_IN: SignOptions['expiresIn'] = (process.env.REFRESH_TOKEN_EXPIRES_IN) as SignOptions['expiresIn'];
 
 export class AuthUtils {
     static async hashPassword(password: string): Promise<string> {

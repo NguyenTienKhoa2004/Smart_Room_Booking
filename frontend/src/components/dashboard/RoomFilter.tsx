@@ -11,7 +11,6 @@ interface RoomFilterProps {
 
 const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
     const [availableEquipment, setAvailableEquipment] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchEquipment = async () => {
@@ -100,8 +99,8 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
                             key={item}
                             onClick={() => handleAmenityChange(item)}
                             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${filters.equipment.includes(item)
-                                    ? 'bg-blue-600 text-white shadow-sm'
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                ? 'bg-blue-600 text-white shadow-sm'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                         >
                             {item}

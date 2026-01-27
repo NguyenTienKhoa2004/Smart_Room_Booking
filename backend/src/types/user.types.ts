@@ -4,6 +4,7 @@ export interface User {
     password: string;
     full_name: string;
     role: 'user' | 'admin';
+    is_banned: boolean;
     created_at: Date;
     updated_at: Date;
 }
@@ -13,6 +14,7 @@ export interface UserResponse {
     email: string;
     full_name: string;
     role: string;
+    is_banned?: boolean;
     created_at: Date;
 }
 

@@ -3,7 +3,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useAuth } from './AuthContext';
 
 interface NotificationContextType {
-    // We can add more functionality here if needed
+
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);

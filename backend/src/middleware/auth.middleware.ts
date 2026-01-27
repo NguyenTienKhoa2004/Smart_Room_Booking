@@ -9,11 +9,9 @@ declare global {
         }
     }
 }
-
 export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
     try {
         const token = AuthUtils.extractToken(req.headers.authorization);
-
         if (!token) {
             res.status(401).json({
                 success: false,
@@ -21,7 +19,6 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
             });
             return;
         }
-
         const decoded = AuthUtils.verifyToken(token);
         req.user = decoded;
         next();
@@ -41,7 +38,6 @@ export const authorizeAdmin = (req: Request, res: Response, next: NextFunction):
         });
         return;
     }
-
     if (req.user.role !== 'admin') {
         res.status(403).json({
             success: false,
@@ -49,11 +45,9 @@ export const authorizeAdmin = (req: Request, res: Response, next: NextFunction):
         });
         return;
     }
-
     next();
 };
 
-// Optional authentication (don't fail if no token)
 export const optionalAuth = (req: Request, res: Response, next: NextFunction): void => {
     try {
         const token = AuthUtils.extractToken(req.headers.authorization);
@@ -62,7 +56,6 @@ export const optionalAuth = (req: Request, res: Response, next: NextFunction): v
             req.user = decoded;
         }
     } catch (error) {
-        // Ignore errors, just proceed without user
     }
     next();
 };

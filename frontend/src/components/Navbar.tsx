@@ -20,7 +20,7 @@ const Navbar = () => {
                         {user ? (
                             <>
                                 <Link
-                                    to="/dashboard"
+                                    to={user.role === 'admin' ? "/admin/dashboard" : "/dashboard"}
                                     className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
                                 >
                                     <LayoutDashboard className="h-4 w-4" />

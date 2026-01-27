@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import RoomFilter from '../components/dashboard/RoomFilter';
 import RoomCard from '../components/dashboard/RoomCard';
 import UserBookingSidebar from '../components/dashboard/UserBookingSidebar';
 import type { Room, RoomFilterState, Booking } from '../types/room';
 import { getRooms, getUserBookings, cancelBooking, createBooking } from '../services/api';
-import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
     const { user, isLoading: authLoading } = useAuth();
-    const navigate = useNavigate();
 
     const [rooms, setRooms] = useState<Room[]>([]);
     const [bookings, setBookings] = useState<Booking[]>([]);
@@ -50,12 +49,29 @@ const Dashboard: React.FC = () => {
         }
     };
 
+
     useEffect(() => {
         if (!authLoading && user) {
             fetchRooms();
             fetchBookings();
         }
     }, [filters, authLoading, user]);
+
+    const { socket } = useSocket();
+
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.on('room_status_update', (data: any) => {
+            console.log('Room status updated:', data);
+            fetchRooms();
+            fetchBookings();
+        });
+
+        return () => {
+            socket.off('room_status_update');
+        };
+    }, [socket, filters]);
 
 
     const handleBookRoom = async (room: Room) => {
@@ -134,7 +150,7 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 {/* Right Sidebar */}
-                <div className="w-80 flex-shrink-0 bg-white shadow-xl z-20">
+                <div className="w-80 shrink-0 bg-white shadow-xl z-20">
                     <UserBookingSidebar
                         bookings={bookings}
                         onCancel={handleCancelBooking}

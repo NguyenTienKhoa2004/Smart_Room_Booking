@@ -3,7 +3,6 @@ import { UserService } from '../services/user.service';
 import { AuthUtils } from '../utils/auth.utils';
 
 export class AuthController {
-    // POST /api/auth/register
     static async register(req: Request, res: Response): Promise<void> {
         try {
             const { email, password, full_name } = req.body;
@@ -27,7 +26,6 @@ export class AuthController {
         }
     }
 
-    // POST /api/auth/login
     static async login(req: Request, res: Response): Promise<void> {
         try {
             const { email, password } = req.body;
@@ -44,9 +42,9 @@ export class AuthController {
 
             res.cookie('refreshToken', result.data.refreshToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                sameSite: 'strict', // CSRF protection
-                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 7 * 24 * 60 * 60 * 1000,
             });
 
             res.status(200).json({
@@ -66,7 +64,6 @@ export class AuthController {
         }
     }
 
-    // GET /api/auth/profile (Protected)
     static async getProfile(req: Request, res: Response): Promise<void> {
         try {
             if (!req.user) {
@@ -91,7 +88,6 @@ export class AuthController {
         }
     }
 
-    // GET /api/auth/me (Protected - same as profile but different endpoint)
     static async getCurrentUser(req: Request, res: Response): Promise<void> {
         try {
             if (!req.user) {
@@ -118,7 +114,6 @@ export class AuthController {
         }
     }
 
-    // POST /api/auth/refresh-token
     static async refreshToken(req: Request, res: Response): Promise<void> {
         try {
             const refreshToken = req.cookies?.refreshToken;
@@ -177,14 +172,13 @@ export class AuthController {
             });
         }
     }
-    // POST /api/auth/logout
     static async logout(req: Request, res: Response): Promise<void> {
         try {
             res.cookie('refreshToken', '', {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
-                expires: new Date(0), // Set cookie to expire immediately
+                expires: new Date(0),
             });
             res.status(200).json({
                 success: true,
