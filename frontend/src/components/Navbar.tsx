@@ -24,7 +24,7 @@ const Navbar = () => {
                                     className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
                                 >
                                     <LayoutDashboard className="h-4 w-4" />
-                                    Dashboard
+                                    Let's book it
                                 </Link>
                                 <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-md">
                                     <User className="h-4 w-4 text-blue-600" />

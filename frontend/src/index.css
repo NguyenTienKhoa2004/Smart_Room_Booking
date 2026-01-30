@@ -1,1 +1,17 @@
 @import "tailwindcss";
+@import "react-day-picker/style.css";
+
+/* Custom breakpoint for time picker at 680px */
+@media (min-width: 680px) {
+    .time-picker-680\:flex-row {
+        flex-direction: row;
+    }
+
+    .time-picker-680\:flex {
+        display: flex;
+    }
+
+    .time-picker-680\:hidden {
+        display: none;
+    }
+}

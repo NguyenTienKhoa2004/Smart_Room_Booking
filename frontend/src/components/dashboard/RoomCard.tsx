@@ -18,7 +18,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col h-full">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300  flex flex-col h-full">
             <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                     <div>

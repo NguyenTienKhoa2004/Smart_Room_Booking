@@ -56,11 +56,10 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- Docker & Docker Compose
-- PostgreSQL & Redis (if running locally without Docker)
+- **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop/)
+- That's it! No Node.js installation required when using Docker.
 
-### Installation
+### Installation & Running the Application
 
 1. **Clone the repository:**
    ```bash
@@ -71,17 +70,67 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 2. **Setup environment variables:**
    ```bash
    cp backend/.env.example backend/.env
-   # Edit .env with your credentials
    ```
+   
+   **Important:** Edit `backend/.env` and update the email configuration:
+   - `EMAIL_USER`: Your Gmail address
+   - `EMAIL_PASS`: Your Gmail app password ([How to create](https://support.google.com/accounts/answer/185833))
+   - (Optional) Update JWT secrets for production
 
-3. **Launch with Docker:**
+3. **Start all services with Docker:**
    ```bash
    docker-compose up -d
    ```
+   
+   This will start:
+   - PostgreSQL database (port 5433)
+   - Redis cache (port 6379)
+   - Backend API (port 5000)
+   - Frontend app (port 3000)
 
-4. **Install dependencies (local dev):**
+4. **Access the application:**
+   - 🌐 **Frontend:** http://localhost:3000
+   - 🔌 **Backend API:** http://localhost:5000
+   - 📊 **Health Check:** http://localhost:5000/health
+
+5. **View logs (optional):**
+   ```bash
+   # All services
+   docker-compose logs -f
+   
+   # Specific service
+   docker-compose logs -f backend
+   ```
+
+6. **Stop the application:**
+   ```bash
+   docker-compose down
+   ```
+
+### Alternative: Local Development (Without Docker)
+
+If you prefer to run the backend/frontend locally for development:
+
+**Prerequisites:**
+- Node.js (v18 or higher)
+- Docker Desktop (for PostgreSQL & Redis only)
+
+**Steps:**
+1. Start only the database services:
+   ```bash
+   docker-compose up -d postgres redis
+   ```
+
+2. Install and run backend:
    ```bash
    cd backend
+   npm install
+   npm run dev
+   ```
+
+3. Install and run frontend (in a new terminal):
+   ```bash
+   cd frontend
    npm install
    npm run dev
    ```

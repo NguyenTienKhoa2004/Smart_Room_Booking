@@ -61,9 +61,9 @@ const Home = () => {
                         </main>
                     </div>
                 </div>
-                <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 group overflow-hidden rounded-2xl">
                     <img
-                        className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                        className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full transition-transform duration-700 ease-in-out group-hover:scale-110"
                         src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
                         alt="Modern office"
                     />
@@ -82,41 +82,48 @@ const Home = () => {
 
                     <div className="mt-10">
                         <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                            <div className="relative">
+                            <div className="relative p-6 rounded-xl transition-all duration-300 ease-in-out hover:bg-white hover:-translate-y-2 hover:shadow-2xl group cursor-pointer">
                                 <dt>
-                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white transition-transform duration-300 group-hover:scale-110">
                                         <Calendar className="h-6 w-6" />
                                     </div>
-                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Instant Booking</p>
+                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
+                                        Instant Booking
+                                    </p>
                                 </dt>
                                 <dd className="mt-2 ml-16 text-base text-gray-500">
                                     Book available rooms instantly directly from your dashboard.
                                 </dd>
                             </div>
 
-                            <div className="relative">
+                            <div className="relative p-6 rounded-xl transition-all duration-300 ease-in-out hover:bg-white hover:-translate-y-2 hover:shadow-2xl group cursor-pointer">
                                 <dt>
-                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white transition-transform duration-300 group-hover:scale-110">
                                         <Users className="h-6 w-6" />
                                     </div>
-                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Team Collaboration</p>
+                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
+                                        Team Collaboration
+                                    </p>
                                 </dt>
                                 <dd className="mt-2 ml-16 text-base text-gray-500">
                                     Invite team members and manage group schedules seamlessly.
                                 </dd>
                             </div>
 
-                            <div className="relative">
+                            <div className="relative p-6 rounded-xl transition-all duration-300 ease-in-out hover:bg-white hover:-translate-y-2 hover:shadow-2xl group cursor-pointer">
                                 <dt>
-                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white transition-transform duration-300 group-hover:scale-110">
                                         <Clock className="h-6 w-6" />
                                     </div>
-                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Real-time Availability</p>
+                                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
+                                        Real-time Availability
+                                    </p>
                                 </dt>
                                 <dd className="mt-2 ml-16 text-base text-gray-500">
                                     See room status in real-time to avoid conflicts.
                                 </dd>
                             </div>
+
                         </div>
                     </div>
                 </div>
