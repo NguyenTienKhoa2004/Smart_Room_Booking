@@ -107,6 +107,32 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
    docker-compose down
    ```
 
+### Applying Code Changes with Docker
+
+When you edit code while using Docker, you need to rebuild the containers to apply the changes:
+
+**For Backend changes:**
+```bash
+docker-compose down
+docker-compose up -d --build backend
+```
+
+**For Frontend changes:**
+```bash
+docker-compose down
+docker-compose up -d --build frontend
+```
+
+**For changes in both:**
+```bash
+docker-compose down
+docker-compose up -d --build
+```
+
+> **Note:** Docker builds a production version of your app, so changes require rebuilding (takes 1-3 minutes). For faster development with instant hot reload, see the "Local Development" section below.
+
+---
+
 ### Alternative: Local Development (Without Docker)
 
 If you prefer to run the backend/frontend locally for development:
