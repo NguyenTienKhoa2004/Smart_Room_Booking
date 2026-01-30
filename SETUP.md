@@ -82,14 +82,28 @@ docker-compose restart backend
 docker-compose restart frontend
 ```
 
-### Rebuild after code changes
+### Using Docker (Production-like Setup)
+
+When you edit code in Docker mode, you **must rebuild** the container to see changes:
+
 ```bash
-# Rebuild specific service
+# After editing backend code
+docker-compose down
 docker-compose up -d --build backend
 
-# Rebuild everything
+# After editing frontend code
+docker-compose down
+docker-compose up -d --build frontend
+
+# Or rebuild both
+docker-compose down
 docker-compose up -d --build
 ```
+
+⚠️ **Limitations:**
+- Takes 1-3 minutes to rebuild
+- No hot reload
+- Good for testing production build
 
 ### Remove everything (including database data)
 ```bash
