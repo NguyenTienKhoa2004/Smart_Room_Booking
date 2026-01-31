@@ -44,8 +44,38 @@ export const adminService = {
     unbanUser: async (userId: number): Promise<AdminUser> => {
         const response = await api.put(`/admin/users/${userId}/unban`);
         return response.data.data;
+    },
+
+    uploadImageFromUrl: async (imageUrl: string): Promise<string> => {
+        const response = await api.post('/admin/upload/url', { imageUrl });
+        return response.data.data.imageUrl;
+    },
+
+    getAllRooms: async (): Promise<Room[]> => {
+        const response = await api.get('/rooms');
+        return response.data.data;
+    },
+
+    createRoom: async (roomData: Partial<Room>): Promise<Room> => {
+        const response = await api.post('/rooms', roomData);
+        return response.data.data;
+    },
+
+    deleteRoom: async (roomId: number): Promise<void> => {
+        await api.delete(`/rooms/${roomId}`);
     }
 };
+
+export interface Room {
+    id: number;
+    name: string;
+    capacity: number;
+    floor: number;
+    equipment: string[];
+    image_url?: string;
+    created_at?: string;
+    updated_at?: string;
+}
 
 export interface AdminUser {
     id: number;

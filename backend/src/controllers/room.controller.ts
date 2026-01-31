@@ -44,4 +44,37 @@ export class RoomController {
             });
         }
     }
+    static async createRoom(req: Request, res: Response): Promise<void> {
+        try {
+            const room = await RoomService.createRoom(req.body);
+            res.status(201).json({
+                success: true,
+                message: 'Room created successfully',
+                data: room
+            });
+        } catch (error: any) {
+            console.error('Create room error:', error);
+            res.status(500).json({
+                success: false,
+                message: error.message || 'Failed to create room'
+            });
+        }
+    }
+
+    static async deleteRoom(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            await RoomService.deleteRoom(Number(id));
+            res.status(200).json({
+                success: true,
+                message: 'Room deleted successfully'
+            });
+        } catch (error: any) {
+            console.error('Delete room error:', error);
+            res.status(500).json({
+                success: false,
+                message: error.message || 'Failed to delete room'
+            });
+        }
+    }
 }

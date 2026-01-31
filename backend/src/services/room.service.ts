@@ -42,14 +42,10 @@ export class RoomService {
         }
 
         if (filters.equipment && filters.equipment.length > 0) {
-            // Assuming equipment is a TEXT[] column in Postgres
             query += ` AND r.equipment @> $${paramIndex}::text[]`;
             params.push(filters.equipment);
             paramIndex++;
         }
-
-        // Add proper handling for time filtering to exclude booked rooms if desired
-        // But the requirement says "filter the available room", so we should strictly filter out
         if (filters.start_time && filters.end_time) {
             query += ` AND NOT EXISTS (
                 SELECT 1 FROM bookings b 
@@ -70,7 +66,6 @@ export class RoomService {
 
         const result = await db.query(query, params);
 
-        // Cache for 5 minutes (300 seconds)
         await redis.set(cacheKey, JSON.stringify(result.rows), 'EX', 300);
 
         return result.rows;
@@ -84,8 +79,6 @@ export class RoomService {
     }
 
     static async getAmenities(): Promise<string[]> {
-        // Query to get distinct equipment. 
-        // If equipment is an array column, we unnest it.
         const query = `
             SELECT DISTINCT unnest(equipment) as amenity 
             FROM rooms 
@@ -93,5 +86,30 @@ export class RoomService {
         `;
         const result = await db.query(query);
         return result.rows.map(row => row.amenity);
+    }
+    static async createRoom(data: Partial<Room>): Promise<Room> {
+        const query = `
+            INSERT INTO rooms (name, capacity, floor, equipment, image_url, status)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *
+        `;
+        const values = [
+            data.name,
+            data.capacity,
+            data.floor,
+            data.equipment || [],
+            data.image_url,
+            data.status || 'available'
+        ];
+
+        const result = await db.query(query, values);
+        await this.invalidateCache();
+        return result.rows[0];
+    }
+
+    static async deleteRoom(id: number): Promise<void> {
+        const query = 'DELETE FROM rooms WHERE id = $1';
+        await db.query(query, [id]);
+        await this.invalidateCache();
     }
 }

@@ -13,8 +13,6 @@ import adminRoutes from './routes/admin';
 import cookieParser from 'cookie-parser';
 import { apiLimiter } from './middleware/rate-limiter.middleware';
 
-console.log('🔥 SERVER START FILE:', __filename);
-
 dotenv.config();
 
 const app: Application = express();
@@ -25,7 +23,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser()); // Use cookie-parser middleware
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.get('/health', async (req, res) => {
@@ -50,7 +48,6 @@ app.get('/test-root', (req, res) => {
     res.json({ message: 'root ok' });
 });
 
-// Routes will be added here
 // app.use('/api/rooms', roomRoutes);
 // app.use('/api/bookings', bookingRoutes);
 // app.use('/api/auth', authRoutes);
@@ -61,8 +58,6 @@ app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/admin', adminRoutes);
-// app.get('/api/test', (req, res) => res.json({ message: 'test okkkk' }));
-
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error('Error:', err);
     res.status(err.status || 500).json({
