@@ -8,8 +8,12 @@ async function seedRooms() {
     try {
         console.log('🌱 Starting to seed rooms...');
 
-        // Clear existing rooms (optional, but good for idempotent seeding)
-        // await db.query('DELETE FROM rooms');
+        // Check if rooms already exist
+        const existingRooms = await db.query('SELECT COUNT(*) FROM rooms');
+        if (parseInt(existingRooms.rows[0].count) > 0) {
+            console.log('⚠️ Rooms already exist, skipping seed.');
+            process.exit(0);
+        }
 
         for (let i = 0; i < 10; i++) {
             const name = `${roomNames[i]} Room`;

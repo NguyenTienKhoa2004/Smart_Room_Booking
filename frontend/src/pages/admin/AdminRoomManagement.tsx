@@ -108,6 +108,12 @@ const AdminRoomManagement = () => {
                     </button>
                 </div>
 
+                {error && (
+                    <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md relative" role="alert">
+                        <span className="block sm:inline">{error}</span>
+                    </div>
+                )}
+
                 {/* Room Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {rooms.map((room) => (

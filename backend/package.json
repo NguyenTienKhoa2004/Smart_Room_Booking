@@ -10,7 +10,10 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "create-admin": "ts-node src/scripts/createAdmins.ts",
-    "seed:rooms": "ts-node src/scripts/seedRooms.ts"
+    "seed:rooms": "ts-node src/scripts/seedRooms.ts",
+    "db:init": "ts-node src/scripts/initDb.ts",
+    "db:setup": "npm run db:init && npm run create-admin && npm run seed:rooms",
+    "db:deploy": "node dist/scripts/initDb.js && node dist/scripts/createAdmins.js && node dist/scripts/seedRooms.js"
   },
   "keywords": [],
   "author": "",
