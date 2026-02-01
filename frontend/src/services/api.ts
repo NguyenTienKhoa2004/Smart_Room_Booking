@@ -6,7 +6,9 @@ let storeRefreshTokenFunction: (() => Promise<string | null>) | null = null;
 let storeLogoutFunction: (() => void) | null = null;
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api/v1',
+    baseURL: import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/api/v1`
+        : 'http://localhost:5000/api/v1',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
