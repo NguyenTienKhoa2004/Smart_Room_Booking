@@ -1,6 +1,6 @@
 import app from './app';
 import dotenv from 'dotenv';
-import { ReminderJob } from './scripts/reminder.job';
+import { ReminderService } from './services/reminder.service';
 import { createServer } from 'http';
 import { initSocket } from './socket';
 
@@ -16,5 +16,5 @@ httpServer.listen(PORT, () => {
     console.log(`📍 Environment: ${process.env.NODE_ENV}`);
 
     // Initialize scheduled tasks
-    ReminderJob.init();
+    ReminderService.init();
 });

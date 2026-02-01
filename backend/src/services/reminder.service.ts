@@ -1,9 +1,9 @@
 import cron from 'node-cron';
 import db from '../config/database';
-import { EmailService } from '../services/email.service';
-import { SSEService } from '../services/sse.service';
+import { EmailService } from './email.service';
+import { SSEService } from './sse.service';
 
-export class ReminderJob {
+export class ReminderService {
     static init() {
         console.log('⏰ Initializing Reminder Job (every minute)...');
         cron.schedule('* * * * *', async () => {
@@ -56,7 +56,7 @@ export class ReminderJob {
             await client.query('COMMIT');
         } catch (error) {
             await client.query('ROLLBACK');
-            console.error('Error in ReminderJob:', error);
+            console.error('Error in ReminderService:', error);
         } finally {
             client.release();
         }

@@ -2,6 +2,16 @@
 
 A real-time, high-concurrency room booking solution built with Node.js, TypeScript, PostgreSQL, and Redis. This system is designed to handle complex booking logic, prevent double-bookings through distributed locking, and provide a seamless experience for both admins and users.
 
+The system has a user-friendly UI which enhance user experience. Features include:
+- Real-time booking status updates
+- Easy-to-use interface for booking and canceling rooms.
+- Confirmation email when booking a room.
+- Reminder email will be sent before 15 minutes of the booking.
+- Filtering room base on multiple criteria.
+- Admin can manage users, rooms, and bookings.
+- Admin can attach image for each room.
+- Admin can ban user.
+
 ---
 
 ## Key Features
@@ -27,8 +37,8 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 ### 4. High Performance & Scalability
 - **Redis Caching**: Ultra-fast retrieval of available rooms.
 - **Distributed Locking**: Redlock implementation to prevent double-booking in a clustered environment.
-- **Performance Testing**: Load testing using **Artillery** and **JMeter**.
 - **Performance Tuning**: Continuous monitoring and optimization of bottlenecks.
+- **AWS S3 Storage**: Store room images in S3 help to reduce the load on the database.
 
 ### 5. Real-time Notifications & Background Jobs
 - **Reminder**: Notify the user shortly before the booking starts.
@@ -51,8 +61,6 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 
 ### Prerequisites
 - **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop/)
-- That's it! No Node.js installation required when using Docker.
-
 ### Installation & Running the Application
 
 1. **Clone the repository:**
@@ -173,7 +181,3 @@ If you prefer to run the backend/frontend locally for development:
 ```
 
 ---
-
-## 📝 License
-
-This project is licensed under the MIT License.
