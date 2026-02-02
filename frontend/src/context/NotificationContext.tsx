@@ -15,8 +15,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     useEffect(() => {
         if (user && accessToken) {
             // Initialize SSE connection
-            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-            const url = `${baseUrl}/notifications/subscribe?token=${accessToken}`;
+            const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const url = `${baseUrl}/api/v1/notifications/subscribe?token=${accessToken}`;
 
             console.log('Connecting to SSE...');
             const eventSource = new EventSource(url);
