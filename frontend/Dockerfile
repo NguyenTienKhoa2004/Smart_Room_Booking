@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-# Cache bust: 2026-02-02-21:43 - Force rebuild after adding VITE_API_URL to Railway
+# Cache bust: 2026-02-02-21:48 - Force rebuild after adding VITE_API_URL to Railway
 RUN npm run build
 
 # Production stage
