@@ -13,6 +13,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+# Cache bust: 2026-02-02-21:30 - Rebuild with VITE_API_URL
 RUN npm run build
 
 # Production stage
