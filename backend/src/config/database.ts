@@ -10,6 +10,7 @@ const pool = new Pool(
         ? {
             connectionString: process.env.DATABASE_URL,
             ssl: isProduction ? { rejectUnauthorized: false } : false,
+
         }
         : {
             host: process.env.DB_HOST,

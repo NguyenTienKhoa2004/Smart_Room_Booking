@@ -1,17 +1,7 @@
 import * as React from "react"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon, Clock } from "lucide-react"
-
 import { cn } from "../../lib/utils"
-import { Button } from "./button"
-import { Calendar } from "./calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "./popover"
 
-interface DateTimePickerProps {
+interface DateTimePickerProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'min' | 'max'> {
     date?: Date
     onDateChange: (date: Date | undefined) => void
     placeholder?: string
@@ -21,114 +11,54 @@ interface DateTimePickerProps {
 export function DateTimePicker({
     date,
     onDateChange,
-    placeholder = "Pick a date and time",
+    placeholder,
     minDate,
+    className,
+    ...props
 }: DateTimePickerProps) {
-    const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(date)
-    const [hours, setHours] = React.useState<string>(
-        date ? format(date, "HH") : "09"
-    )
-    const [minutes, setMinutes] = React.useState<string>(
-        date ? format(date, "mm") : "00"
-    )
 
-    React.useEffect(() => {
-        setSelectedDate(date)
-        if (date) {
-            setHours(format(date, "HH"))
-            setMinutes(format(date, "mm"))
-        }
-    }, [date])
+    // Helper to format Date to "YYYY-MM-DDTHH:mm" for input value
+    const formatDateForInput = (d?: Date): string => {
+        if (!d) return ""
 
-    const handleDateSelect = (newDate: Date | undefined) => {
-        if (newDate) {
-            const updatedDate = new Date(newDate)
-            updatedDate.setHours(parseInt(hours), parseInt(minutes))
-            setSelectedDate(updatedDate)
-            onDateChange(updatedDate)
-        } else {
-            setSelectedDate(undefined)
-            onDateChange(undefined)
-        }
+        // Improve reliability by using local time components explicitly
+        const pad = (num: number) => num.toString().padStart(2, '0')
+        const year = d.getFullYear()
+        const month = pad(d.getMonth() + 1)
+        const day = pad(d.getDate())
+        const hours = pad(d.getHours())
+        const minutes = pad(d.getMinutes())
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`
     }
 
-    const handleTimeChange = (newHours: string, newMinutes: string) => {
-        setHours(newHours)
-        setMinutes(newMinutes)
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value
+        if (!value) {
+            onDateChange(undefined)
+            return
+        }
 
-        if (selectedDate) {
-            const updatedDate = new Date(selectedDate)
-            updatedDate.setHours(parseInt(newHours), parseInt(newMinutes))
-            setSelectedDate(updatedDate)
-            onDateChange(updatedDate)
+        const newDate = new Date(value)
+        if (!isNaN(newDate.getTime())) {
+            onDateChange(newDate)
         }
     }
 
     return (
-        <Popover>
-            <PopoverTrigger asChild>
-                <Button
-                    variant={"outline"}
-                    className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !selectedDate && "text-gray-500"
-                    )}
-                >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {selectedDate ? (
-                        format(selectedDate, "MM/dd/yyyy h:mm aa")
-                    ) : (
-                        <span>{placeholder}</span>
-                    )}
-                </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                    mode="single"
-                    selected={selectedDate}
-                    onSelect={handleDateSelect}
-                    initialFocus
-                    disabled={(date) =>
-                        minDate ? date < minDate : false
-                    }
-                />
-                <div className="border-t border-gray-200 p-3">
-                    <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-gray-500" />
-                        <div className="flex items-center gap-1">
-                            <select
-                                value={hours}
-                                onChange={(e) => handleTimeChange(e.target.value, minutes)}
-                                className="px-2 py-1 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
-                            >
-                                {Array.from({ length: 24 }, (_, i) => {
-                                    const hour = i.toString().padStart(2, "0")
-                                    return (
-                                        <option key={hour} value={hour}>
-                                            {hour}
-                                        </option>
-                                    )
-                                })}
-                            </select>
-                            <span className="text-gray-500">:</span>
-                            <select
-                                value={minutes}
-                                onChange={(e) => handleTimeChange(hours, e.target.value)}
-                                className="px-2 py-1 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
-                            >
-                                {Array.from({ length: 60 }, (_, i) => {
-                                    const minute = i.toString().padStart(2, "0")
-                                    return (
-                                        <option key={minute} value={minute}>
-                                            {minute}
-                                        </option>
-                                    )
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </PopoverContent>
-        </Popover>
+        <div className="relative w-full">
+            <input
+                type="datetime-local"
+                value={formatDateForInput(date)}
+                onChange={handleChange}
+                min={minDate ? formatDateForInput(minDate) : undefined}
+                className={cn(
+                    "flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50",
+                    !date && "text-gray-500", // Dim text if empty/placeholder-like state
+                    className
+                )}
+                {...props}
+            />
+        </div>
     )
 }
