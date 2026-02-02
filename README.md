@@ -2,6 +2,8 @@
 
 A real-time, high-concurrency room booking solution built with Node.js, TypeScript, PostgreSQL, and Redis. This system is designed to handle complex booking logic, prevent double-bookings through distributed locking, and provide a seamless experience for both admins and users.
 
+🌐 **App URL:** [https://proactive-presence-production-3c78.up.railway.app/](https://proactive-presence-production-3c78.up.railway.app/)
+
 The system has a user-friendly UI which enhance user experience. Features include:
 - Real-time booking status updates
 - Easy-to-use interface for booking and canceling rooms.
