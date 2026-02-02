@@ -5,10 +5,15 @@ let storeAccessToken: string | null = null;
 let storeRefreshTokenFunction: (() => Promise<string | null>) | null = null;
 let storeLogoutFunction: (() => void) | null = null;
 
+// Debug: Log environment variable and final baseURL
+console.log('🔍 VITE_API_URL from env:', import.meta.env.VITE_API_URL);
+const baseURL = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api/v1`
+    : 'http://localhost:5000/api/v1';
+console.log('🌐 Final API baseURL:', baseURL);
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
-        ? `${import.meta.env.VITE_API_URL}/api/v1`
-        : 'http://localhost:5000/api/v1',
+    baseURL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

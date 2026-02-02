@@ -22,7 +22,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
+        // Debug: Log environment variable and final WebSocket URL
+        console.log('🔍 VITE_API_URL from env (Socket):', import.meta.env.VITE_API_URL);
         const socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        console.log('🔌 Final WebSocket URL:', socketUrl);
+
         const socketInstance = io(socketUrl, {
             withCredentials: true,
             transports: ['websocket', 'polling'], // Allow fallback
