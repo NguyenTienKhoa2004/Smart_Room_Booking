@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-# Cache bust: 2026-02-02-22:42 - Force rebuild
+# Cache bust: 2026-02-02-23:01 - Force rebuild
 RUN npm run build
 
 # Expose port
