@@ -4,6 +4,10 @@ A real-time, high-concurrency room booking solution built with Node.js, TypeScri
 
 🌐 **App URL:** [https://proactive-presence-production-3c78.up.railway.app/](https://proactive-presence-production-3c78.up.railway.app/)
 
+## Admin account
+- Email: admin@example.com
+- Password: admin123
+
 The system has a user-friendly UI which enhance user experience. Features include:
 - Real-time booking status updates
 - Easy-to-use interface for booking and canceling rooms.
