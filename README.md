@@ -58,8 +58,10 @@ The system has a user-friendly UI which enhance user experience. Features includ
 - **Database**: [PostgreSQL](https://www.postgresql.org/) 
 - **Cache & Concurrency**: [Redis](https://redis.io/) 
 - **Real-time Engine**: [Socket.io](https://socket.io/)
-- **Deployment**: [Docker](https://www.docker.com/) 
-- **Testing**: Artillery, JMeter, Jest
+- **Frontend**: [React](https://reactjs.org/)
+- **AWS**: [S3](https://aws.amazon.com/s3/)
+- **Deployment**: [Docker](https://www.docker.com/), [Railway](https://railway.app/)
+- **Testing**: Jest
 
 ---
 

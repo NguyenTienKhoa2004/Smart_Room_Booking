@@ -15,6 +15,17 @@ export class EmailService {
         socketTimeout: 10000,
     });
 
+    static async verifyConnection() {
+        try {
+            await this.transporter.verify();
+            console.log('✅ Email service is ready to send messages');
+            return true;
+        } catch (error) {
+            console.error('❌ Email service connection failed:', error);
+            return false;
+        }
+    }
+
     static async sendBookingConfirmation(to: string, bookingDetails: {
         roomName: string;
         startTime: string | Date;
