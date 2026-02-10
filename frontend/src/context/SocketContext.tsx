@@ -33,7 +33,6 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         });
 
         socketInstance.on('connect', () => {
-            console.log('Socket connected:', socketInstance.id);
             setIsConnected(true);
         });
 

@@ -170,6 +170,31 @@ If you prefer to run the backend/frontend locally for development:
    npm run dev
    ```
 
+## 📈 Load Testing & Concurrency Validation
+
+The system's concurrency protection was validated using **Artillery** to simulate a "Race Condition" where 1,110 concurrent users attempted to book the **exact same room for the exact same time slot**.
+
+### Test Scenario:
+- **Total Virtual Users**: 1,110
+- **Duration**: 30 seconds
+- **Endpoint**: `/api/v1/bookings` (POST)
+- **Constraint**: All users target the same `testRoomId` and `timeSlot`.
+
+### Results Summary:
+| Metric | Value | Result |
+| :--- | :--- | :--- |
+| **HTTP 201 (Success)** | **1** | Indicate that only 1 user can book the room at the same time. |
+| **HTTP 400 (Conflict)** | **1,109** | Indicate that 1,109 users were correctly rejected with "Already Booked". |
+| **Success Rate** | **100%** | Indicate that zero server crashes or unhandled exceptions. |
+| **Failed Requests** | **0** | Indicate that no double-bookings were detected under extreme load. |
+
+### How to run the load test:
+```bash
+cd backend
+npm run load:setup  
+npm run load:test   
+```
+
 ---
 
 ## Project Structure

@@ -1,0 +1,4 @@
+# Ignore test reports and generated files
+report.json
+report.json.html
+*.log

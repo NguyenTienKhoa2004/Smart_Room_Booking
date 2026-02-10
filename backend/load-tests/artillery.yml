@@ -1,0 +1,93 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    # Phase 1: Warm-up - 10 users over 10 seconds
+    - duration: 10
+      arrivalRate: 1
+      name: "Warm-up"
+    
+    # Phase 2: Spike Test - 100 concurrent users trying to book the SAME room at the SAME time
+    - duration: 5
+      arrivalRate: 20
+      name: "Spike - 100 concurrent bookings"
+    
+    # Phase 3: Extreme Load - 1000 concurrent users
+    - duration: 10
+      arrivalRate: 100
+      name: "Extreme Load - 1000 concurrent bookings"
+  
+  processor: "./artillery-processor.js"
+  
+  # Variables for testing
+  variables:
+    testRoomId: 12  # Change this to a valid room ID in your database
+  
+  # Plugins for better reporting
+  plugins:
+    expect: {}
+  
+  # HTTP settings
+  http:
+    timeout: 30
+
+scenarios:
+  - name: "Concurrent Booking Test - Same Room, Same Time"
+    weight: 100
+    flow:
+      # Step 1: Login to get JWT token
+      - post:
+          url: "/api/v1/auth/login"
+          json:
+            email: "loadtest@example.com"
+            password: "LoadTest123!"
+          capture:
+            - json: "$.data.accessToken"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+      
+      # Step 2: Attempt to book the same room at the same time
+      # This is where we test for race conditions
+      - post:
+          url: "/api/v1/bookings"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          beforeRequest: "generateBookingData"
+          json:
+            room_id: "{{ testRoomId }}"
+            title: "Load Test Booking - {{ $randomString() }}"
+            start_time: "{{ startTime }}"
+            end_time: "{{ endTime }}"
+          afterResponse: "validateBookingResponse"
+          expect:
+            # We expect MOST requests to fail with 400 (room already booked)
+            # Only ONE should succeed with 201
+            - statusCode: 
+                - 201  # Success
+                - 400  # Expected failure (room already booked)
+                - 409  # Conflict
+
+  - name: "Different Rooms Test - Should All Succeed"
+    weight: 0  # Disabled by default, set to 1 to enable
+    flow:
+      - post:
+          url: "/api/v1/auth/login"
+          json:
+            email: "loadtest@example.com"
+            password: "LoadTest123!"
+          capture:
+            - json: "$.data.accessToken"
+              as: "authToken"
+      
+      - post:
+          url: "/api/v1/bookings"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          beforeRequest: "generateDifferentRoomBooking"
+          json:
+            room_id: "{{ randomRoomId }}"
+            title: "Load Test - Different Room"
+            start_time: "{{ startTime }}"
+            end_time: "{{ endTime }}"
+          expect:
+            - statusCode: 201
