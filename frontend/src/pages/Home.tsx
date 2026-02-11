@@ -1,10 +1,6 @@
 import Navbar from '../components/Navbar';
-import { Calendar, Users, Clock, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-
+import { Calendar, Users, Clock } from 'lucide-react';
 const Home = () => {
-    const { user } = useAuth();
 
     return (
         <div className="min-h-screen bg-white">
