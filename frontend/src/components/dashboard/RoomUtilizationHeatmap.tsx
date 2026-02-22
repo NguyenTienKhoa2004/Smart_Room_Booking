@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     ScatterChart,
     Scatter,
@@ -12,7 +12,7 @@ import {
 import { adminService, type RoomHeatmap } from '../../services/admin.service';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const HOURS = Array.from({ length: 24 }, (_, i) => i);
+
 
 const RoomUtilizationHeatmap = () => {
     const [data, setData] = useState<RoomHeatmap[]>([]);

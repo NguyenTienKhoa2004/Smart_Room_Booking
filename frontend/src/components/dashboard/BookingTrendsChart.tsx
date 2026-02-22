@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     AreaChart,
     Area,
@@ -52,8 +52,8 @@ const BookingTrendsChart = () => {
                             key={r}
                             onClick={() => setRange(r)}
                             className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${range === r
-                                    ? 'bg-white text-blue-600 shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-700'
+                                ? 'bg-white text-blue-600 shadow-sm'
+                                : 'text-gray-500 hover:text-gray-700'
                                 }`}
                         >
                             {r} Days

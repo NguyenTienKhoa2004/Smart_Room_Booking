@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     BarChart,
     Bar,
@@ -96,7 +96,7 @@ const UserActivityMetrics = () => {
                                     outerRadius={80}
                                     paddingAngle={5}
                                 >
-                                    {stats?.roleDistribution.map((entry, index) => (
+                                    {stats?.roleDistribution.map((_, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
