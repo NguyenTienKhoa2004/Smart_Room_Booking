@@ -211,6 +211,16 @@ const AdminDashboard = () => {
                                     <p className="text-xs text-gray-500">View all system bookings</p>
                                 </div>
                             </Link>
+
+                            <Link to="/admin/analytics" className="flex items-center p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors group">
+                                <div className="p-2 bg-green-50 text-green-600 rounded-md group-hover:bg-green-100 transition-colors">
+                                    <TrendingUp className="h-5 w-5" />
+                                </div>
+                                <div className="ml-4">
+                                    <p className="text-sm font-medium text-gray-900">System Analytics</p>
+                                    <p className="text-xs text-gray-500">View detailed trends & metrics</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
 

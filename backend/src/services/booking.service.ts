@@ -3,6 +3,8 @@ import { CreateBookingDTO, BookingResponse } from '../types/booking.types';
 import { RoomService } from './room.service';
 import { EmailService } from './email.service';
 import { SSEService } from './sse.service';
+import { logger } from '../config/logger';
+
 
 
 export class BookingService {
@@ -65,7 +67,7 @@ export class BookingService {
                 startTime: start_time,
                 endTime: end_time,
                 title: title
-            }).catch(err => console.error('Failed to send confirmation email:', err));
+            }).catch(err => logger.error('Failed to send confirmation email:', err));
 
             SSEService.sendToUser(user_id, 'booking_confirmed', {
                 message: `Booking for ${room_name} confirmed!`,

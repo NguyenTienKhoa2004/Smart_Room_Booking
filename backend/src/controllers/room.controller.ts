@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { RoomService } from '../services/room.service';
+import { logger } from '../config/logger';
+
 
 export class RoomController {
     static async getRooms(req: Request, res: Response): Promise<void> {
@@ -21,7 +23,7 @@ export class RoomController {
                 data: rooms
             });
         } catch (error: any) {
-            console.error('Get rooms error:', error);
+            logger.error('Get rooms error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to fetch rooms'
@@ -37,7 +39,7 @@ export class RoomController {
                 data: equipment
             });
         } catch (error: any) {
-            console.error('Get equipment error:', error);
+            logger.error('Get equipment error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to fetch equipment'
@@ -53,7 +55,7 @@ export class RoomController {
                 data: room
             });
         } catch (error: any) {
-            console.error('Create room error:', error);
+            logger.error('Create room error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to create room'
@@ -70,7 +72,7 @@ export class RoomController {
                 message: 'Room deleted successfully'
             });
         } catch (error: any) {
-            console.error('Delete room error:', error);
+            logger.error('Delete room error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to delete room'

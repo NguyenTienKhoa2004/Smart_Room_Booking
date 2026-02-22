@@ -5,6 +5,7 @@ import adminUserRoutes from './adminUser.routes';
 // import adminBookingRoutes from './adminBooking.routes';
 import adminStatisticRoutes from './adminStatistic.routes';
 import adminUploadRoutes from './adminUpload.routes';
+import adminRagRoutes from './adminRag.routes';
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.use(authorizeAdmin);
 router.use('/users', adminUserRoutes);
 router.use('/statistics', adminStatisticRoutes);
 router.use('/upload', adminUploadRoutes);
+router.use('/rag', adminRagRoutes);
 // router.use('/rooms', adminRoomRoutes);
 // router.use('/bookings', adminBookingRoutes);
 

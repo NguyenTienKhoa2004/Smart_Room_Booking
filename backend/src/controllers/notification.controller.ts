@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { SSEService } from '../services/sse.service';
+import { logger } from '../config/logger';
+
 
 export class NotificationController {
     static subscribe(req: Request, res: Response) {
@@ -20,6 +22,6 @@ export class NotificationController {
 
         res.write(': heartbeat\n\n');
 
-        console.log(`User ${userId} subscribed to notifications`);
+        logger.info(`User ${userId} subscribed to notifications`);
     }
 }

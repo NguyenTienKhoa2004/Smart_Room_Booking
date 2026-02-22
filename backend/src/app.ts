@@ -12,10 +12,15 @@ import adminRoutes from './routes/admin';
 
 import cookieParser from 'cookie-parser';
 import { apiLimiter } from './middleware/rate-limiter.middleware';
+import { requestIdMiddleware } from './middleware/request-id.middleware';
+import { logger } from './config/logger';
+
 
 dotenv.config();
 
 const app: Application = express();
+
+app.use(requestIdMiddleware);
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:3000'],
@@ -59,7 +64,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error('Error:', err);
+    logger.error('Error:', err);
     res.status(err.status || 500).json({
         success: false,
         message: err.message || 'Internal Server Error',

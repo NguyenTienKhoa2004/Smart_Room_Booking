@@ -1,5 +1,7 @@
 import db from '../config/database';
 import { EmailService } from './email.service';
+import { logger } from '../config/logger';
+
 
 export interface AdminUserResponse {
     id: number;
@@ -92,7 +94,7 @@ export class AdminUserService {
         try {
             await EmailService.sendBanNotification(user.email, user.full_name);
         } catch (error) {
-            console.error('Failed to send ban notification email:', error);
+            logger.error('Failed to send ban notification email:', error);
             // Don't throw error, ban should still succeed even if email fails
         }
 
@@ -129,7 +131,7 @@ export class AdminUserService {
         try {
             await EmailService.sendUnbanNotification(user.email, user.full_name);
         } catch (error) {
-            console.error('Failed to send unban notification email:', error);
+            logger.error('Failed to send unban notification email:', error);
             // Don't throw error, unban should still succeed even if email fails
         }
 

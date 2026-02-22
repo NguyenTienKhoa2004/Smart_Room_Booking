@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { AdminBookingService } from '../services/adminBooking.service';
+import { logger } from '../config/logger';
+
 
 export class AdminBookingController {
     static async getAllBookings(req: Request, res: Response) {
@@ -22,7 +24,7 @@ export class AdminBookingController {
                 message: 'Bookings retrieved successfully',
             });
         } catch (error: any) {
-            console.error('Error getting all bookings:', error);
+            logger.error('Error getting all bookings:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to retrieve bookings',

@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { logger } from '../config/logger';
+
 
 dotenv.config();
 
@@ -18,10 +20,10 @@ export class EmailService {
     static async verifyConnection() {
         try {
             await this.transporter.verify();
-            console.log('✅ Email service is ready to send messages');
+            logger.info('✅ Email service is ready to send messages');
             return true;
         } catch (error) {
-            console.error('❌ Email service connection failed:', error);
+            logger.error('❌ Email service connection failed:', error);
             return false;
         }
     }
@@ -57,9 +59,9 @@ export class EmailService {
 
         try {
             await this.transporter.sendMail(mailOptions);
-            console.log(`Confirmation email sent to ${to}`);
+            logger.info(`Confirmation email sent to ${to}`);
         } catch (error) {
-            console.error('Error sending confirmation email:', error);
+            logger.error('Error sending confirmation email:', error);
         }
     }
 
@@ -84,9 +86,9 @@ export class EmailService {
 
         try {
             await this.transporter.sendMail(mailOptions);
-            console.log(`Reminder email sent to ${to}`);
+            logger.info(`Reminder email sent to ${to}`);
         } catch (error) {
-            console.error('Error sending reminder email:', error);
+            logger.error('Error sending reminder email:', error);
         }
     }
 
@@ -111,9 +113,9 @@ export class EmailService {
 
         try {
             await this.transporter.sendMail(mailOptions);
-            console.log(`Ban notification email sent to ${to}`);
+            logger.info(`Ban notification email sent to ${to}`);
         } catch (error) {
-            console.error('Error sending ban notification email:', error);
+            logger.error('Error sending ban notification email:', error);
         }
     }
 
@@ -138,9 +140,9 @@ export class EmailService {
 
         try {
             await this.transporter.sendMail(mailOptions);
-            console.log(`Unban notification email sent to ${to}`);
+            logger.info(`Unban notification email sent to ${to}`);
         } catch (error) {
-            console.error('Error sending unban notification email:', error);
+            logger.error('Error sending unban notification email:', error);
         }
     }
 }

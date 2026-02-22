@@ -12,10 +12,12 @@ const httpServer = createServer(app);
 initSocket(httpServer);
 
 import { EmailService } from './services/email.service';
+import { logger } from './config/logger';
+
 
 httpServer.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+    logger.info(`🚀 Server running on port ${PORT}`);
+    logger.info(`📍 Environment: ${process.env.NODE_ENV}`);
 
     // Verify Email Connection
     EmailService.verifyConnection();

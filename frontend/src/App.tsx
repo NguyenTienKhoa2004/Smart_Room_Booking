@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/adminDashboard';
 import AdminUserManagement from './pages/admin/AdminUserManagement';
 import AdminRoomManagement from './pages/admin/AdminRoomManagement';
+import Analytics from './pages/admin/Analytics';
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { SocketProvider } from './context/SocketContext';
@@ -24,6 +25,7 @@ function App() {
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/users" element={<AdminUserManagement />} />
               <Route path="/admin/rooms" element={<AdminRoomManagement />} />
+              <Route path="/admin/analytics" element={<Analytics />} />
             </Routes>
           </SocketProvider>
         </Router>

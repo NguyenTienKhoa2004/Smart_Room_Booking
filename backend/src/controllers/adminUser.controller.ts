@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { AdminUserService } from '../services/adminUser.service';
+import { logger } from '../config/logger';
+
 
 export class AdminUserController {
     static async getAllUsers(req: Request, res: Response) {
@@ -19,7 +21,7 @@ export class AdminUserController {
                 message: 'Users retrieved successfully',
             });
         } catch (error: any) {
-            console.error('Error getting all users:', error);
+            logger.error('Error getting all users:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to retrieve users',
@@ -43,7 +45,7 @@ export class AdminUserController {
                 message: 'User retrieved successfully',
             });
         } catch (error: any) {
-            console.error('Error getting user by ID:', error);
+            logger.error('Error getting user by ID:', error);
             if (error.message === 'User not found') {
                 return res.status(404).json({
                     success: false,
@@ -80,7 +82,7 @@ export class AdminUserController {
                 message: 'User banned successfully',
             });
         } catch (error: any) {
-            console.error('Error banning user:', error);
+            logger.error('Error banning user:', error);
             if (error.message === 'User not found') {
                 return res.status(404).json({
                     success: false,
@@ -121,7 +123,7 @@ export class AdminUserController {
                 message: 'User unbanned successfully',
             });
         } catch (error: any) {
-            console.error('Error unbanning user:', error);
+            logger.error('Error unbanning user:', error);
 
             if (error.message === 'User not found') {
                 return res.status(404).json({
@@ -154,7 +156,7 @@ export class AdminUserController {
                 message: 'User statistics retrieved successfully',
             });
         } catch (error: any) {
-            console.error('Error getting user stats:', error);
+            logger.error('Error getting user stats:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to retrieve user statistics',

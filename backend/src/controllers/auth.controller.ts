@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { AuthUtils } from '../utils/auth.utils';
+import { logger } from '../config/logger';
+
 
 export class AuthController {
     static async register(req: Request, res: Response): Promise<void> {
@@ -18,7 +20,7 @@ export class AuthController {
             const result = await UserService.register({ email, password, full_name });
             res.status(201).json(result);
         } catch (error: any) {
-            console.error('Register error:', error);
+            logger.error('Register error:', error);
             res.status(400).json({
                 success: false,
                 message: error.message || 'Registration failed',
@@ -56,7 +58,7 @@ export class AuthController {
                 message: result.message,
             });
         } catch (error: any) {
-            console.error('Login error:', error);
+            logger.error('Login error:', error);
             res.status(401).json({
                 success: false,
                 message: error.message || 'Login failed',
@@ -80,7 +82,7 @@ export class AuthController {
                 data: user,
             });
         } catch (error: any) {
-            console.error('Get profile error:', error);
+            logger.error('Get profile error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to get profile',
@@ -165,7 +167,7 @@ export class AuthController {
                 message: 'Access token refreshed successfully',
             });
         } catch (error: any) {
-            console.error('Refresh token error:', error);
+            logger.error('Refresh token error:', error);
             res.status(403).json({
                 success: false,
                 message: error.message || 'Failed to refresh token',
@@ -185,7 +187,7 @@ export class AuthController {
                 message: 'Logged out successfully',
             });
         } catch (error: any) {
-            console.error('Logout error:', error);
+            logger.error('Logout error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Logout failed',

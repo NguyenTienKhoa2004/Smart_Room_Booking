@@ -1,5 +1,7 @@
 import db from '../config/database';
 import { AuthUtils } from '../utils/auth.utils';
+import { logger } from '../config/logger';
+
 
 async function createAdmin() {
     try {
@@ -11,7 +13,7 @@ async function createAdmin() {
         const existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
 
         if (existing.rows.length > 0) {
-            console.log('❌ Admin user already exists');
+            logger.info('❌ Admin user already exists');
             process.exit(0);
         }
 
@@ -26,14 +28,14 @@ async function createAdmin() {
             [email, hashedPassword, fullName, 'admin']
         );
 
-        console.log('✅ Admin user created successfully:');
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('User:', result.rows[0]);
+        logger.info('✅ Admin user created successfully:');
+        logger.info('Email:', email);
+        logger.info('Password:', password);
+        logger.info('User:', result.rows[0]);
 
         process.exit(0);
     } catch (error) {
-        console.error('❌ Error creating admin:', error);
+        logger.error('❌ Error creating admin:', error);
         process.exit(1);
     }
 }

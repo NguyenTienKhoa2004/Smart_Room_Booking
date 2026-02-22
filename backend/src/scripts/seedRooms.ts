@@ -1,4 +1,6 @@
 import db from '../config/database';
+import { logger } from '../config/logger';
+
 
 async function seedRooms() {
     const roomNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Sigma', 'Omega', 'Zenith', 'Horizon', 'Portal', 'Matrix'];
@@ -6,12 +8,12 @@ async function seedRooms() {
     const statuses = ['available', 'in_use', 'reserved', 'maintenance'];
 
     try {
-        console.log('🌱 Starting to seed rooms...');
+        logger.info('🌱 Starting to seed rooms...');
 
         // Check if rooms already exist
         const existingRooms = await db.query('SELECT COUNT(*) FROM rooms');
         if (parseInt(existingRooms.rows[0].count) > 0) {
-            console.log('⚠️ Rooms already exist, skipping seed.');
+            logger.info('⚠️ Rooms already exist, skipping seed.');
             process.exit(0);
         }
 
@@ -35,13 +37,13 @@ async function seedRooms() {
                 [name, capacity, floor, roomEquip, status, imageUrl]
             );
 
-            console.log(`✅ Inserted: ${name}`);
+            logger.info(`✅ Inserted: ${name}`);
         }
 
-        console.log('✨ Seeding completed successfully!');
+        logger.info('✨ Seeding completed successfully!');
         process.exit(0);
     } catch (error) {
-        console.error('❌ Error seeding rooms:', error);
+        logger.error('❌ Error seeding rooms:', error);
         process.exit(1);
     }
 }

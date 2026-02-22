@@ -2,10 +2,12 @@ import cron from 'node-cron';
 import db from '../config/database';
 import { EmailService } from './email.service';
 import { SSEService } from './sse.service';
+import { logger } from '../config/logger';
+
 
 export class ReminderService {
     static init() {
-        console.log('⏰ Initializing Reminder Job (every minute)...');
+        logger.info('⏰ Initializing Reminder Job (every minute)...');
         cron.schedule('* * * * *', async () => {
             await this.processReminders();
         });
@@ -34,14 +36,14 @@ export class ReminderService {
             for (const row of result.rows) {
                 const { id, title, room_name, start_time, email, user_id } = row;
 
-                console.log(`Sending reminder for booking ${id}: ${title}`);
+                logger.info(`Sending reminder for booking ${id}: ${title}`);
 
                 // Send email reminder
                 EmailService.sendBookingReminder(email, {
                     roomName: room_name,
                     startTime: start_time,
                     title
-                }).catch(err => console.error(`Failed to send email reminder for ${id}:`, err));
+                }).catch(err => logger.error(`Failed to send email reminder for ${id}:`, err));
 
                 // Send SSE notification
                 SSEService.sendToUser(user_id, 'booking_reminder', {
@@ -56,7 +58,7 @@ export class ReminderService {
             await client.query('COMMIT');
         } catch (error) {
             await client.query('ROLLBACK');
-            console.error('Error in ReminderService:', error);
+            logger.error('Error in ReminderService:', error);
         } finally {
             client.release();
         }

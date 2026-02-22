@@ -1,5 +1,7 @@
 import Redis from 'ioredis';
 import dotenv from 'dotenv';
+import { logger } from './logger';
+
 
 dotenv.config();
 
@@ -22,11 +24,11 @@ const redis = redisUrl
     });
 
 redis.on('connect', () => {
-    console.log('✅ Redis connected successfully');
+    logger.info('✅ Redis connected successfully');
 });
 
 redis.on('error', (err) => {
-    console.error('❌ Redis connection error:', err);
+    logger.error('❌ Redis connection error:', err);
 });
 
 export default redis;

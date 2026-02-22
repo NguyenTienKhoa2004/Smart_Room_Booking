@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { BookingService } from '../services/booking.service';
 import { ValidationUtils } from '../utils/validation.utils';
 import { getIO } from '../socket';
+import { logger } from '../config/logger';
+
 
 export class BookingController {
     static async createBooking(req: Request, res: Response): Promise<void> {
@@ -29,7 +31,7 @@ export class BookingController {
 
             res.status(201).json(result);
         } catch (error: any) {
-            console.error('Create booking error:', error);
+            logger.error('Create booking error:', error);
             res.status(400).json({
                 success: false,
                 message: error.message || 'Failed to create booking',
@@ -47,7 +49,7 @@ export class BookingController {
             const result = await BookingService.getBookings(user_id);
             res.status(200).json(result);
         } catch (error: any) {
-            console.error('Get bookings error:', error);
+            logger.error('Get bookings error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to get bookings',
@@ -70,7 +72,7 @@ export class BookingController {
             const result = await BookingService.getBooking(Number(id), user_id);
             res.status(200).json(result);
         } catch (error: any) {
-            console.error('Get booking error:', error);
+            logger.error('Get booking error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to get booking',
@@ -116,7 +118,7 @@ export class BookingController {
 
             res.status(200).json(result);
         } catch (error: any) {
-            console.error('Update booking error:', error);
+            logger.error('Update booking error:', error);
             res.status(400).json({
                 success: false,
                 message: error.message || 'Failed to update booking',
@@ -139,7 +141,7 @@ export class BookingController {
             getIO().emit('room_status_update', { room_id: result.room_id });
             res.status(200).json(result);
         } catch (error: any) {
-            console.error('Delete booking error:', error);
+            logger.error('Delete booking error:', error);
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to delete booking',

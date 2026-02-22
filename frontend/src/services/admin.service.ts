@@ -63,8 +63,41 @@ export const adminService = {
 
     deleteRoom: async (roomId: number): Promise<void> => {
         await api.delete(`/rooms/${roomId}`);
+    },
+
+    getBookingTrends: async (params: { startDate?: string; endDate?: string; granularity?: string } = {}): Promise<BookingTrend[]> => {
+        const response = await api.get('/admin/statistics/analytics/booking-trends', { params });
+        return response.data.data;
+    },
+
+    getRoomUtilizationHeatmap: async (): Promise<RoomHeatmap[]> => {
+        const response = await api.get('/admin/statistics/analytics/room-heatmap');
+        return response.data.data;
+    },
+
+    getUserActivityMetrics: async (): Promise<UserActivityMetrics> => {
+        const response = await api.get('/admin/statistics/analytics/user-activity');
+        return response.data.data;
     }
 };
+
+export interface BookingTrend {
+    date: string;
+    bookings: number;
+    cancelled: number;
+}
+
+export interface RoomHeatmap {
+    hour: number;
+    dayOfWeek: number;
+    bookingCount: number;
+}
+
+export interface UserActivityMetrics {
+    registrations: Array<{ date: string; count: number }>;
+    topUsers: Array<{ userId: number; fullName: string; bookingCount: number }>;
+    roleDistribution: Array<{ role: string; count: number }>;
+}
 
 export interface Room {
     id: number;

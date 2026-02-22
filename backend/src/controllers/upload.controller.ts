@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { S3Service } from '../services/s3.service';
 import axios from 'axios';
+import { logger } from '../config/logger';
+
 
 export class UploadController {
     static async uploadImage(req: Request, res: Response) {
@@ -18,7 +20,7 @@ export class UploadController {
                 data: { imageUrl: url }
             });
         } catch (error) {
-            console.error('Upload Error:', error);
+            logger.error('Upload Error:', error);
             res.status(500).json({ success: false, message: 'Image upload failed' });
         }
     }
@@ -54,7 +56,7 @@ export class UploadController {
             });
 
         } catch (error) {
-            console.error('URL Upload Error:', error);
+            logger.error('URL Upload Error:', error);
             res.status(500).json({ success: false, message: 'Failed to upload image from URL' });
         }
     }
