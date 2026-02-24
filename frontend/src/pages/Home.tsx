@@ -1,6 +1,18 @@
 import Navbar from '../components/Navbar';
 import { Calendar, Users, Clock } from 'lucide-react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 const Home = () => {
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    }
+
+    if (user && user.role === 'admin') {
+        return <Navigate to="/admin/dashboard" replace />;
+    }
 
     return (
         <div className="min-h-screen bg-white">

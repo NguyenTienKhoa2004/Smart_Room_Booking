@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, User, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     return (
         <nav className="bg-white shadow-sm border-b border-gray-100">
@@ -19,19 +25,21 @@ const Navbar = () => {
                     <div className="flex items-center space-x-4">
                         {user ? (
                             <>
-                                <Link
-                                    to={user.role === 'admin' ? "/admin/dashboard" : "/dashboard"}
-                                    className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
-                                >
-                                    <LayoutDashboard className="h-4 w-4" />
-                                    Let's book it
-                                </Link>
+                                {user.role !== 'admin' && (
+                                    <Link
+                                        to="/dashboard"
+                                        className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
+                                    >
+                                        <LayoutDashboard className="h-4 w-4" />
+                                        Let's book it
+                                    </Link>
+                                )}
                                 <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-md">
                                     <User className="h-4 w-4 text-blue-600" />
                                     {user.full_name}
                                 </div>
                                 <button
-                                    onClick={logout}
+                                    onClick={handleLogout}
                                     className="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors"
                                 >
                                     <LogOut className="h-4 w-4" />

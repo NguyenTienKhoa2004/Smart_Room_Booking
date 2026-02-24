@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
+import { Navigate } from 'react-router-dom';
 import RoomFilter from '../components/dashboard/RoomFilter';
 import RoomCard from '../components/dashboard/RoomCard';
 import UserBookingSidebar from '../components/dashboard/UserBookingSidebar';
 import type { Room, RoomFilterState, Booking } from '../types/room';
 import { getRooms, getUserBookings, cancelBooking, createBooking } from '../services/api';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
     const { user, isLoading: authLoading } = useAuth();
-
     const [rooms, setRooms] = useState<Room[]>([]);
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [isLoadingRooms, setIsLoadingRooms] = useState(false);
     const [isLoadingBookings, setIsLoadingBookings] = useState(false);
-
     const [filters, setFilters] = useState<RoomFilterState>({
         equipment: [],
         capacity: undefined,
@@ -114,6 +113,10 @@ const Dashboard: React.FC = () => {
 
     if (authLoading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
+    if (user && user.role === 'admin') {
+        return <Navigate to="/admin/dashboard" replace />;
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <Navbar />
@@ -122,11 +125,6 @@ const Dashboard: React.FC = () => {
                 {/* Main Content Area */}
                 <div className="flex-1 overflow-y-auto p-8">
                     <div className="max-w-6xl mx-auto">
-                        <div className="mb-8">
-                            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-                            <p className="text-gray-600 mt-2">Find and book the perfect room for your meeting.</p>
-                        </div>
-
                         <RoomFilter filters={filters} onFilterChange={setFilters} />
 
                         {isLoadingRooms ? (
@@ -134,7 +132,7 @@ const Dashboard: React.FC = () => {
                                 <div className="spinner-border animate-spin h-8 w-8 border-b-2 border-indigo-600 rounded-full"></div>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {rooms.length > 0 ? (
                                     rooms.map(room => (
                                         <RoomCard key={room.id} room={room} onBook={handleBookRoom} />

@@ -52,12 +52,12 @@ const UserBookingSidebar: React.FC<UserBookingSidebarProps> = ({ bookings, onCan
                                     </p>
                                 </div>
                                 <div className="flex flex-col space-y-2">
-                                    <button className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                                    <button className="px-3 py-1 text-xs rounded-full text-white bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 font-medium shadow-sm transition-all">
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => onCancel(booking.id)}
-                                        className="text-xs text-red-600 hover:text-red-800 font-medium"
+                                        className="px-3 py-1 text-xs rounded-full text-white bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 font-medium shadow-sm transition-all"
                                     >
                                         Cancel
                                     </button>

@@ -64,7 +64,7 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
                         min="1"
                         value={filters.capacity || ''}
                         onChange={(e) => onFilterChange({ ...filters, capacity: e.target.value ? parseInt(e.target.value) : undefined })}
-                        placeholder="e.g. 5"
+                        placeholder="example: 5"
                         className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                     />
                 </div>
@@ -76,7 +76,7 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
                         type="number"
                         value={filters.floor || ''}
                         onChange={(e) => onFilterChange({ ...filters, floor: e.target.value ? parseInt(e.target.value) : undefined })}
-                        placeholder="e.g. 2"
+                        placeholder="example: 2"
                         className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                     />
                 </div>

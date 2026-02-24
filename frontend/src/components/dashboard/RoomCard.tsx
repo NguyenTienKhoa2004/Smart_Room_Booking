@@ -17,8 +17,20 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
         }
     };
 
+    const images = [
+        '/benjamin-child-0sT9YhNgSEs-unsplash.jpg',
+        '/benjamin-child-GWe0dlVD9e0-unsplash.jpg',
+        '/danielle-cerullo-bIZJRVBLfOM-unsplash.jpg',
+        '/s-o-c-i-a-l-c-u-t-1RT4txDDAbM-unsplash.jpg',
+        '/vizito-visitor-management-L__MBAI3ucc-unsplash.jpg'
+    ];
+    const getRoomImage = (id: number) => images[id % images.length];
+
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300  flex flex-col h-full">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-row h-full">
+            <div className="w-2/5 shrink-0 relative">
+                <img src={getRoomImage(room.id)} alt={room.name} className="absolute inset-0 w-full h-full object-cover" />
+            </div>
             <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                     <div>
@@ -42,35 +54,17 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
                 <div className="mb-4">
                     <div className="flex flex-wrap gap-1.5">
                         {room.equipment.map((amenity, index) => (
-                            <span key={index} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 text-indigo-700">
+                            <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white border border-slate-800 text-slate-800 shadow-sm">
                                 {amenity}
                             </span>
                         ))}
                     </div>
                 </div>
-
-                {/* Mini Availability Timeline - Visual Mockup */}
-                <div className="mb-4">
-                    <p className="text-xs text-gray-500 mb-1">Today's Availability</p>
-                    <div className="h-2 bg-gray-100 rounded-full flex overflow-hidden">
-                        {/* Simulating slots: 08:00 - 18:00 */}
-                        <div className="w-1/4 bg-green-400" title="08:00 - 10:30 (Free)"></div>
-                        <div className="w-1/6 bg-red-400" title="10:30 - 12:00 (Booked)"></div>
-                        <div className="w-1/4 bg-green-400" title="12:00 - 14:30 (Free)"></div>
-                        <div className="w-1/3 bg-gray-200" title="14:30 - 18:00 (Unknown)"></div>
-                    </div>
-                    <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
-                        <span>8AM</span>
-                        <span>12PM</span>
-                        <span>6PM</span>
-                    </div>
-                </div>
-
                 <button
                     onClick={() => onBook(room)}
                     disabled={room.status === 'in_use' || room.status === 'maintenance'}
-                    className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white mt-auto
-                        ${room.status === 'available' ? 'bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500' : 'bg-gray-400 cursor-not-allowed'}
+                    className={`self-start py-2.5 px-6 border border-transparent rounded-full shadow-md hover:shadow-lg text-sm font-medium text-white mt-auto transition-all duration-300
+                        ${room.status === 'available' ? 'bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900' : 'bg-gray-300 cursor-not-allowed'}
                     `}
                 >
                     {room.status === 'available' ? 'Book Now' : 'Unavailable'}

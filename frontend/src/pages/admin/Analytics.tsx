@@ -14,7 +14,7 @@ const Analytics = () => {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">
                     <Link
-                        to="/admin"
+                        to="/admin/dashboard"
                         className="inline-flex items-center text-sm text-gray-500 hover:text-blue-600 mb-4 transition-colors"
                     >
                         <ArrowLeft className="h-4 w-4 mr-1" />
