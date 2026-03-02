@@ -9,6 +9,7 @@ import roomRoutes from './routes/room.routes';
 import bookingRoutes from './routes/booking.routes';
 import notificationRoutes from './routes/notification.routes';
 import adminRoutes from './routes/admin';
+import ragRoutes from './routes/rag.routes';
 
 import cookieParser from 'cookie-parser';
 import { apiLimiter } from './middleware/rate-limiter.middleware';
@@ -63,6 +64,7 @@ app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/rag', ragRoutes);
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     logger.error('Error:', err);
     res.status(err.status || 500).json({

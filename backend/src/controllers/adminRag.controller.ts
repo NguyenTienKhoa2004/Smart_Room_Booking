@@ -58,3 +58,21 @@ export const deleteDocument = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: 'Failed to delete document' });
     }
 };
+
+export const retrieveDebug = async (req: Request, res: Response) => {
+    try {
+        const question = req.query.question as string;
+        const topK = req.query.topK ? parseInt(req.query.topK as string, 10) : 5;
+
+        if (!question) {
+            res.status(400).json({ success: false, message: 'Question parameter is required' });
+            return;
+        }
+
+        const result = await AdminRagService.retrieveDebug(question, topK);
+        res.status(200).json({ success: true, data: result.chunks });
+    } catch (error: any) {
+        logger.error('Error in retrieveDebug:', error);
+        res.status(500).json({ success: false, message: 'Failed to retrieve chunks' });
+    }
+};

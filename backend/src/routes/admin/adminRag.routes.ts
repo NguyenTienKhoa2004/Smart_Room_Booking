@@ -8,4 +8,8 @@ router.post('/docs', uploadDocument);
 router.get('/docs', listDocuments);
 router.delete('/docs/:id', deleteDocument);
 
+// Day 4 Retrieval Debug Endpoint
+import { retrieveDebug } from '../../controllers/adminRag.controller';
+router.get('/retrieve', retrieveDebug);
+
 export default router;

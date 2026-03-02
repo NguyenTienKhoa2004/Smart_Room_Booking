@@ -53,4 +53,10 @@ export class AdminRagService {
         }
         return true;
     }
+
+    static async retrieveDebug(question: string, topK: number) {
+        // Import must be added to the top of the file as well
+        const { retrieveChunks } = await import('../AI/rag/retriever');
+        return retrieveChunks(question, { topK });
+    }
 }

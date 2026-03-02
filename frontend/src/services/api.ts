@@ -110,4 +110,9 @@ export const createBooking = async (data: { room_id: number, title: string, star
     return response.data;
 };
 
+export const askRag = async (question: string, topK: number = 5) => {
+    const response = await api.post('/rag/ask', { question, topK });
+    return response.data;
+};
+
 export default api;

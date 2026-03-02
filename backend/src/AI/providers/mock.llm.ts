@@ -1,9 +1,9 @@
 import { LLMProvider } from "./llm.provider";
 
 export class MockLLMProvider implements LLMProvider {
-    async generate(prompt: string): Promise<string> {
+    async generate(prompt: string, options?: any): Promise<string> {
         return JSON.stringify({
-            answer: "Đây là câu trả lời mock.",
+            answer: "For now this only for mock",
             citations: []
         });
     }

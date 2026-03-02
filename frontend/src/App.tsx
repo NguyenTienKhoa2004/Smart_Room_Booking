@@ -10,6 +10,7 @@ import Analytics from './pages/admin/Analytics';
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { SocketProvider } from './context/SocketContext';
+import Chatbox from './components/Chatbox';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/admin/rooms" element={<AdminRoomManagement />} />
               <Route path="/admin/analytics" element={<Analytics />} />
             </Routes>
+            <Chatbox />
           </SocketProvider>
         </Router>
       </NotificationProvider>
