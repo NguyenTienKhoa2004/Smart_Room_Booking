@@ -1,6 +1,7 @@
 import Redis from 'ioredis';
 import dotenv from 'dotenv';
 import { logger } from './logger';
+import Redlock from 'redlock';
 
 
 dotenv.config();
@@ -30,5 +31,16 @@ redis.on('connect', () => {
 redis.on('error', (err) => {
     logger.error('❌ Redis connection error:', err);
 });
+
+export const redlock = new Redlock(
+    [redis],
+    {
+        driftFactor: 0.01,
+        retryCount: 3,
+        retryDelay: 200,
+        retryJitter: 200,
+        automaticExtensionThreshold: 500,
+    }
+);
 
 export default redis;

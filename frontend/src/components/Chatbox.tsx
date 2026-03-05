@@ -69,10 +69,17 @@ export default function Chatbox() {
                 timestamp: new Date(),
             };
             setMessages((prev) => [...prev, aiResponse]);
-        } catch (error) {
+        } catch (error: any) {
+            let errorMsg = "Hệ thống AI không phản hồi. Vui lòng thử lại.";
+            if (error?.response?.status === 401) {
+                errorMsg = "Bạn chưa đăng nhập hoặc phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
+            } else if (error?.response?.status === 500) {
+                errorMsg = "Hệ thống AI đang gặp sự cố kết nối. Vui lòng thử lại sau.";
+            }
+
             setMessages((prev) => [...prev, {
                 id: Date.now().toString(),
-                text: "Hệ thống AI không phản hồi hoặc bạn chưa đăng nhập. Vui lòng thử lại.",
+                text: errorMsg,
                 sender: 'ai',
                 timestamp: new Date()
             }]);

@@ -104,6 +104,9 @@ export async function retrieveChunks(
 
         const result = await client.query(query, [vectorStr, topK]);
         retrievedChunks = result.rows;
+    } catch (error) {
+        logger.error('Database query error during RAG retrieval (pgvector/tables might be missing):', error);
+        retrievedChunks = []; // Fallback to empty chunks instead of throwing
     } finally {
         client.release();
     }

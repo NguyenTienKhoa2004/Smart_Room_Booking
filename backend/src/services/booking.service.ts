@@ -4,8 +4,7 @@ import { RoomService } from './room.service';
 import { EmailService } from './email.service';
 import { SSEService } from './sse.service';
 import { logger } from '../config/logger';
-
-
+import { redlock } from '../config/redis';
 
 export class BookingService {
     static async createBooking(data: CreateBookingDTO): Promise<BookingResponse> {
@@ -22,65 +21,79 @@ export class BookingService {
             throw new Error('Không thể đặt phòng trong quá khứ');
         }
 
-        const client = await db.connect();
+        const resource = `locks:room:${room_id}`;
+        const ttl = 5000;
+
         try {
-            await client.query('BEGIN');
+            return await redlock.using([resource], ttl, async (signal) => {
+                const client = await db.connect();
+                try {
+                    await client.query('BEGIN');
 
-            await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
+                    await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
 
-            const checkQuery = `
-            SELECT id FROM bookings 
-            WHERE room_id = $1 
-            AND start_time < $3 
-            AND end_time > $2
-        `;
-            const existing = await client.query(checkQuery, [room_id, start_time, end_time]);
+                    const checkQuery = `
+                    SELECT id FROM bookings 
+                    WHERE room_id = $1 
+                    AND start_time < $3 
+                    AND end_time > $2
+                `;
+                    const existing = await client.query(checkQuery, [room_id, start_time, end_time]);
 
-            if (existing.rows.length > 0) {
-                throw new Error('Phòng đã có người đặt trong khoảng thời gian này');
-            }
+                    if (existing.rows.length > 0) {
+                        throw new Error('Phòng đã có người đặt trong khoảng thời gian này');
+                    }
 
-            const insertQuery = `
-            INSERT INTO bookings (room_id, title, start_time, end_time, user_id) 
-            VALUES ($1, $2, $3, $4, $5) 
-            RETURNING id, room_id, title, start_time, end_time, user_id, created_at
-        `;
-            const result = await client.query(insertQuery, [room_id, title, start_time, end_time, user_id]);
+                    const insertQuery = `
+                    INSERT INTO bookings (room_id, title, start_time, end_time, user_id) 
+                    VALUES ($1, $2, $3, $4, $5) 
+                    RETURNING id, room_id, title, start_time, end_time, user_id, created_at
+                `;
+                    const result = await client.query(insertQuery, [room_id, title, start_time, end_time, user_id]);
 
-            await client.query('COMMIT');
+                    await client.query('COMMIT');
 
-            await RoomService.invalidateCache();
+                    await RoomService.invalidateCache();
 
-            const infoQuery = `
-                SELECT u.email, r.name as room_name 
-                FROM users u 
-                JOIN rooms r ON r.id = $2
-                WHERE u.id = $1
-            `;
-            const infoResult = await client.query(infoQuery, [user_id, room_id]);
-            const { email, room_name } = infoResult.rows[0];
+                    const infoQuery = `
+                        SELECT u.email, r.name as room_name 
+                        FROM users u 
+                        JOIN rooms r ON r.id = $2
+                        WHERE u.id = $1
+                    `;
+                    const infoResult = await client.query(infoQuery, [user_id, room_id]);
+                    const { email, room_name } = infoResult.rows[0];
 
-            const booking = result.rows[0];
+                    const booking = result.rows[0];
 
-            EmailService.sendBookingConfirmation(email, {
-                roomName: room_name,
-                startTime: start_time,
-                endTime: end_time,
-                title: title
-            }).catch(err => logger.error('Failed to send confirmation email:', err));
+                    EmailService.sendBookingConfirmation(email, {
+                        roomName: room_name,
+                        startTime: start_time,
+                        endTime: end_time,
+                        title: title
+                    }).catch(err => logger.error('Failed to send confirmation email:', err));
 
-            SSEService.sendToUser(user_id, 'booking_confirmed', {
-                message: `Booking for ${room_name} confirmed!`,
-                booking
+                    SSEService.sendToUser(user_id, 'booking_confirmed', {
+                        message: `Booking for ${room_name} confirmed!`,
+                        booking
+                    });
+
+                    return booking;
+
+                } catch (error) {
+                    await client.query('ROLLBACK');
+                    throw error;
+                } finally {
+                    client.release();
+                }
             });
-
-            return booking;
-
-        } catch (error) {
-            await client.query('ROLLBACK');
+        } catch (error: any) {
+            // Nếu lỗi do mất quyền lấy lock (ResourceLockedError / ExecutionError của redlock)
+            if (error.name === 'ExecutionError' || error.message?.includes('attempts to lock')) {
+                throw new Error('Hệ thống đang bận xử lý giao dịch cho phòng này, vui lòng thử lại sau giây lát');
+            }
+            // Nếu là lỗi mình quăng ra (như 'Phòng đã có người đặt...') thì ném lại
             throw error;
-        } finally {
-            client.release();
         }
     }
 
@@ -113,42 +126,54 @@ export class BookingService {
         if (start >= end) throw new Error('Start time must be before end time');
         if (start < new Date()) throw new Error('Cannot update booking to a past time');
 
-        const client = await db.connect();
+        const resource = `locks:room:${room_id}`;
+        const ttl = 5000;
+
         try {
-            await client.query('BEGIN');
+            return await redlock.using([resource], ttl, async (signal) => {
+                const client = await db.connect();
+                try {
+                    await client.query('BEGIN');
 
-            await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
+                    await client.query('SELECT 1 FROM rooms WHERE id = $1 FOR UPDATE', [room_id]);
 
-            const collisionCheck = await client.query(
-                `SELECT id FROM bookings 
-             WHERE room_id = $1 AND id != $2 
-             AND start_time < $3 AND end_time > $4`,
-                [room_id, id, end, start]
-            );
+                    const collisionCheck = await client.query(
+                        `SELECT id FROM bookings 
+                     WHERE room_id = $1 AND id != $2 
+                     AND start_time < $3 AND end_time > $4`,
+                        [room_id, id, end, start]
+                    );
 
-            if (collisionCheck.rows.length > 0) {
-                throw new Error('Room is already booked for this time period');
+                    if (collisionCheck.rows.length > 0) {
+                        throw new Error('Room is already booked for this time period');
+                    }
+
+                    const result = await client.query(
+                        `UPDATE bookings SET room_id = $1, title = $2, start_time = $3, end_time = $4 
+                     WHERE id = $5 AND user_id = $6 
+                     RETURNING *`,
+                        [room_id, title, start_time, end_time, id, userId]
+                    );
+
+                    if (result.rows.length === 0) throw new Error('Booking not found or unauthorized');
+
+                    await client.query('COMMIT');
+
+                    await RoomService.invalidateCache();
+
+                    return result.rows[0];
+                } catch (e) {
+                    await client.query('ROLLBACK');
+                    throw e;
+                } finally {
+                    client.release();
+                }
+            });
+        } catch (error: any) {
+            if (error.name === 'ExecutionError' || error.message?.includes('attempts to lock')) {
+                throw new Error('Hệ thống đang bận xử lý giao dịch cho phòng này, vui lòng thử lại sau giây lát');
             }
-
-            const result = await client.query(
-                `UPDATE bookings SET room_id = $1, title = $2, start_time = $3, end_time = $4 
-             WHERE id = $5 AND user_id = $6 
-             RETURNING *`,
-                [room_id, title, start_time, end_time, id, userId]
-            );
-
-            if (result.rows.length === 0) throw new Error('Booking not found or unauthorized');
-
-            await client.query('COMMIT');
-
-            await RoomService.invalidateCache();
-
-            return result.rows[0];
-        } catch (e) {
-            await client.query('ROLLBACK');
-            throw e;
-        } finally {
-            client.release();
+            throw error;
         }
     }
 
@@ -170,6 +195,4 @@ export class BookingService {
 
         return result.rows[0];
     }
-
-
 }
