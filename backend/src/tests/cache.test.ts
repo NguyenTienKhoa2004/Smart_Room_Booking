@@ -2,7 +2,6 @@ import { RoomService } from '../services/room.service';
 import redis from '../config/redis';
 import db from '../config/database';
 
-// Mock Redis
 jest.mock('../config/redis', () => {
     return {
         __esModule: true,
@@ -16,7 +15,6 @@ jest.mock('../config/redis', () => {
     };
 });
 
-// Mock Database
 jest.mock('../config/database', () => {
     return {
         __esModule: true,
@@ -35,7 +33,6 @@ describe('RoomService Caching', () => {
         const filters = { capacity: 10 };
         const cachedData = [{ id: 1, name: 'Room 1' }];
 
-        // Mock redis.get to return cached data
         (redis.get as jest.Mock).mockResolvedValue(JSON.stringify(cachedData));
 
         const result = await RoomService.getAllRooms(filters);
@@ -50,9 +47,7 @@ describe('RoomService Caching', () => {
         const filters = { capacity: 10 };
         const dbData = { rows: [{ id: 1, name: 'Room 1' }] };
 
-        // Mock redis.get to return null (cache miss)
         (redis.get as jest.Mock).mockResolvedValue(null);
-        // Mock db.query to return data
         (db.query as jest.Mock).mockResolvedValue(dbData);
 
         const result = await RoomService.getAllRooms(filters);
@@ -60,7 +55,6 @@ describe('RoomService Caching', () => {
         expect(redis.get).toHaveBeenCalled();
         expect(db.query).toHaveBeenCalled();
 
-        // Verify cache is set
         expect(redis.set).toHaveBeenCalledWith(
             expect.stringContaining('rooms:available'),
             JSON.stringify(dbData.rows),
@@ -71,7 +65,6 @@ describe('RoomService Caching', () => {
     });
 
     it('should invalidate cache correctly', async () => {
-        // Mock redis.keys to find keys
         (redis.keys as jest.Mock).mockResolvedValue(['rooms:available:1', 'rooms:available:2']);
 
         await RoomService.invalidateCache();
@@ -81,7 +74,6 @@ describe('RoomService Caching', () => {
     });
 
     it('should handle empty cache invalidation gracefully', async () => {
-        // Mock redis.keys to return empty array
         (redis.keys as jest.Mock).mockResolvedValue([]);
 
         await RoomService.invalidateCache();

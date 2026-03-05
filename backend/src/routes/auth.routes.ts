@@ -7,10 +7,12 @@ const router = Router();
 
 router.post('/register', authLimiter, AuthController.register);
 router.post('/login', authLimiter, AuthController.login);
+// router.post('/register', AuthController.register);
+// router.post('/login', AuthController.login);
 router.post('/refresh-token', AuthController.refreshToken);
 router.post('/logout', AuthController.logout);
 
 router.get('/profile', authenticate, AuthController.getProfile);
 router.get('/me', authenticate, AuthController.getCurrentUser);
 
-export default router;
+export default router; 

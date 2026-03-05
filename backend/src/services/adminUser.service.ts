@@ -25,11 +25,9 @@ export class AdminUserService {
     }> {
         const offset = (page - 1) * limit;
 
-        // Get total count
         const countResult = await db.query('SELECT COUNT(*) FROM users');
         const total = parseInt(countResult.rows[0].count);
 
-        // Get paginated users
         const result = await db.query(
             `SELECT id, email, full_name, role, is_banned, created_at, updated_at 
              FROM users 
@@ -68,7 +66,6 @@ export class AdminUserService {
      * Ban a user
      */
     static async banUser(userId: number): Promise<AdminUserResponse> {
-        // Check if user exists
         const userCheck = await db.query('SELECT id, email, full_name, is_banned FROM users WHERE id = $1', [userId]);
 
         if (userCheck.rows.length === 0) {
@@ -80,8 +77,6 @@ export class AdminUserService {
         if (user.is_banned) {
             throw new Error('User is already banned');
         }
-
-        // Ban the user
         const result = await db.query(
             `UPDATE users 
              SET is_banned = true, updated_at = CURRENT_TIMESTAMP 
@@ -90,12 +85,10 @@ export class AdminUserService {
             [userId]
         );
 
-        // Send email notification
         try {
             await EmailService.sendBanNotification(user.email, user.full_name);
         } catch (error) {
             logger.error('Failed to send ban notification email:', error);
-            // Don't throw error, ban should still succeed even if email fails
         }
 
         return result.rows[0];
@@ -105,7 +98,6 @@ export class AdminUserService {
      * Unban a user
      */
     static async unbanUser(userId: number): Promise<AdminUserResponse> {
-        // Check if user exists
         const userCheck = await db.query('SELECT id, email, full_name, is_banned FROM users WHERE id = $1', [userId]);
 
         if (userCheck.rows.length === 0) {
@@ -118,7 +110,6 @@ export class AdminUserService {
             throw new Error('User is not banned');
         }
 
-        // Unban the user
         const result = await db.query(
             `UPDATE users 
              SET is_banned = false, updated_at = CURRENT_TIMESTAMP 
@@ -127,12 +118,10 @@ export class AdminUserService {
             [userId]
         );
 
-        // Send email notification
         try {
             await EmailService.sendUnbanNotification(user.email, user.full_name);
         } catch (error) {
             logger.error('Failed to send unban notification email:', error);
-            // Don't throw error, unban should still succeed even if email fails
         }
 
         return result.rows[0];

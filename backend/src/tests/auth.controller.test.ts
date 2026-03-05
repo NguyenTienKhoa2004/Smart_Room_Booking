@@ -25,7 +25,7 @@ describe('AuthController', () => {
             (UserService.register as jest.Mock).mockResolvedValue(mockAuthResponse);
 
             const res = await request(app)
-                .post('/api/auth/register')
+                .post('/api/v1/auth/register')
                 .send({ email: 'test@example.com', password: 'password123', full_name: 'Test' });
 
             expect(res.status).toBe(201);
@@ -37,7 +37,7 @@ describe('AuthController', () => {
             (UserService.register as jest.Mock).mockRejectedValue(new Error('Registration failed'));
 
             const res = await request(app)
-                .post('/api/auth/register')
+                .post('/api/v1/auth/register')
                 .send({ email: 'test@example.com', password: 'password123', full_name: 'Test' });
 
             expect(res.status).toBe(400);
@@ -50,7 +50,7 @@ describe('AuthController', () => {
             (UserService.login as jest.Mock).mockResolvedValue(mockAuthResponse);
 
             const res = await request(app)
-                .post('/api/auth/login')
+                .post('/api/v1/auth/login')
                 .send({ email: 'test@example.com', password: 'password123' });
 
             expect(res.status).toBe(200);
@@ -62,7 +62,7 @@ describe('AuthController', () => {
             (UserService.login as jest.Mock).mockRejectedValue(new Error('Invalid email or password'));
 
             const res = await request(app)
-                .post('/api/auth/login')
+                .post('/api/v1/auth/login')
                 .send({ email: 'test@example.com', password: 'wrong' });
 
             expect(res.status).toBe(401);
@@ -73,7 +73,7 @@ describe('AuthController', () => {
     describe('POST /api/auth/logout', () => {
         it('should clear the refreshToken cookie', async () => {
             const res = await request(app)
-                .post('/api/auth/logout');
+                .post('/api/v1/auth/logout');
 
             expect(res.status).toBe(200);
             const cookies = res.get('Set-Cookie');

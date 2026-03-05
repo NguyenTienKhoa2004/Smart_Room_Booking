@@ -34,12 +34,12 @@ describe('BookingService Logic and Ownership', () => {
         };
 
         it('should create booking successfully', async () => {
-            mockClient.query.mockResolvedValueOnce({ rows: [] }); // BEGIN
-            mockClient.query.mockResolvedValueOnce({ rows: [] }); // Overlap check
+            mockClient.query.mockResolvedValueOnce({ rows: [] });
+            mockClient.query.mockResolvedValueOnce({ rows: [] });
             mockClient.query.mockResolvedValueOnce({
                 rows: [{ id: bookingId, ...createData, created_at: new Date() }]
-            }); // Insert
-            mockClient.query.mockResolvedValueOnce({ rows: [] }); // COMMIT
+            });
+            mockClient.query.mockResolvedValueOnce({ rows: [] });
 
             const result = await BookingService.createBooking(createData);
 

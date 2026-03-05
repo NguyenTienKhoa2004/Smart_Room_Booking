@@ -8,6 +8,9 @@ import { redlock } from '../config/redis';
 
 export class BookingService {
     static async createBooking(data: CreateBookingDTO): Promise<BookingResponse> {
+        const reqId = Math.random().toString(36).substring(7); // Dùng để xác định từng request khi test tải
+        console.time(`[Req-${reqId}] Total Time`);
+
         const { room_id, title, start_time, end_time, user_id } = data;
 
         const start = new Date(start_time);
@@ -25,7 +28,11 @@ export class BookingService {
         const ttl = 5000;
 
         try {
+            console.time(`[Req-${reqId}] Wait For Redis Lock`);
             return await redlock.using([resource], ttl, async (signal) => {
+                console.timeEnd(`[Req-${reqId}] Wait For Redis Lock`);
+
+                console.time(`[Req-${reqId}] Database Transaction`);
                 const client = await db.connect();
                 try {
                     await client.query('BEGIN');
@@ -85,14 +92,16 @@ export class BookingService {
                     throw error;
                 } finally {
                     client.release();
+                    console.timeEnd(`[Req-${reqId}] Database Transaction`);
+                    console.timeEnd(`[Req-${reqId}] Total Time`);
                 }
             });
         } catch (error: any) {
-            // Nếu lỗi do mất quyền lấy lock (ResourceLockedError / ExecutionError của redlock)
+            console.timeEnd(`[Req-${reqId}] Total Time`);
             if (error.name === 'ExecutionError' || error.message?.includes('attempts to lock')) {
+                logger.warn(`[Req-${reqId}] Bị chặn bởi Redis Lock`);
                 throw new Error('Hệ thống đang bận xử lý giao dịch cho phòng này, vui lòng thử lại sau giây lát');
             }
-            // Nếu là lỗi mình quăng ra (như 'Phòng đã có người đặt...') thì ném lại
             throw error;
         }
     }
@@ -178,7 +187,6 @@ export class BookingService {
     }
 
     static async deleteBooking(id: number, userId: number): Promise<BookingResponse> {
-        // Soft delete: Change status to 'cancelled'
         const result = await db.query(
             `UPDATE bookings 
              SET status = 'cancelled' 

@@ -20,7 +20,7 @@ config:
   
   # Variables for testing
   variables:
-    testRoomId: 12  # Change this to a valid room ID in your database
+    testRoomId: 1  # Change this to a valid room ID in your database
   
   # Plugins for better reporting
   plugins:
