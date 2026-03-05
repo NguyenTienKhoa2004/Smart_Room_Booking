@@ -6,6 +6,38 @@ jest.mock('../socket', () => ({
     getIO: () => ({ emit: () => { } })
 }));
 
+// Mock redlock — không cần Redis thật
+jest.mock('../config/redis', () => ({
+    __esModule: true,
+    default: {
+        get: jest.fn(),
+        set: jest.fn(),
+        keys: jest.fn(),
+        del: jest.fn(),
+        on: jest.fn(),
+    },
+    redlock: {
+        // return cb(...) để truyền lại kết quả của callback
+        using: jest.fn((_keys: string[], _ttl: number, cb: (signal: any) => Promise<any>) =>
+            cb({ signal: null })
+        ),
+    },
+}));
+
+jest.mock('../services/room.service', () => ({
+    RoomService: { invalidateCache: jest.fn().mockResolvedValue(undefined) },
+}));
+
+jest.mock('../services/email.service', () => ({
+    EmailService: {
+        sendBookingConfirmation: jest.fn().mockResolvedValue(undefined),
+    },
+}));
+
+jest.mock('../services/sse.service', () => ({
+    SSEService: { sendToUser: jest.fn() },
+}));
+
 describe('BookingService Logic and Ownership', () => {
     const userId = 1;
     const roomId = 1;
@@ -20,6 +52,20 @@ describe('BookingService Logic and Ownership', () => {
             release: jest.fn(),
         };
         (db.connect as jest.Mock).mockResolvedValue(mockClient);
+
+        // resetMocks:true trong jest.config xoá implementation sau mỗi test
+        // → cần re-implement các mock có side-effect ở đây
+
+        // redlock.using: gọi thẳng callback, trả về kết quả của nó
+        const { redlock } = jest.requireMock('../config/redis');
+        (redlock.using as jest.Mock).mockImplementation(
+            (_keys: string[], _ttl: number, cb: (signal: any) => Promise<any>) => cb({ signal: null })
+        );
+
+        // EmailService.sendBookingConfirmation phải trả về Promise
+        // vì code gọi .catch() trên nó ngay sau khi gọi
+        const { EmailService } = jest.requireMock('../services/email.service');
+        (EmailService.sendBookingConfirmation as jest.Mock).mockResolvedValue(undefined);
     });
 
     describe('createBooking', () => {

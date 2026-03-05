@@ -8,7 +8,7 @@ import { redlock } from '../config/redis';
 
 export class BookingService {
     static async createBooking(data: CreateBookingDTO): Promise<BookingResponse> {
-        const reqId = Math.random().toString(36).substring(7); // Dùng để xác định từng request khi test tải
+        const reqId = Math.random().toString(36).substring(7);
         console.time(`[Req-${reqId}] Total Time`);
 
         const { room_id, title, start_time, end_time, user_id } = data;

@@ -26,7 +26,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/65 via-80% to-black/30"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
-                        Make room booking easy
+                        Make room booking easyyyy
                     </h1>
                     <p className="text-white text-lg md:text-xl mt-4 max-w-2xl opacity-90 drop-shadow-md">
                         Streamline your workspace management. Book rooms, manage schedules, and collaborate efficiently with our smart booking system.
