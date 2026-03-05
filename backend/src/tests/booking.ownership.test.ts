@@ -2,6 +2,9 @@ import { BookingService } from '../services/booking.service';
 import db from '../config/database';
 
 jest.mock('../config/database');
+jest.mock('../socket', () => ({
+    getIO: () => ({ emit: () => { } })
+}));
 
 describe('BookingService Logic and Ownership', () => {
     const userId = 1;
@@ -34,12 +37,12 @@ describe('BookingService Logic and Ownership', () => {
         };
 
         it('should create booking successfully', async () => {
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({
-                rows: [{ id: bookingId, ...createData, created_at: new Date() }]
+            mockClient.query.mockImplementation((queryText: string) => {
+                if (typeof queryText === 'string' && queryText.includes('SELECT id FROM bookings')) return Promise.resolve({ rows: [] });
+                if (typeof queryText === 'string' && queryText.includes('INSERT INTO bookings')) return Promise.resolve({ rows: [{ id: bookingId, ...createData, created_at: new Date() }] });
+                if (typeof queryText === 'string' && queryText.includes('SELECT u.email')) return Promise.resolve({ rows: [{ email: 'test@test.com', room_name: 'test' }] });
+                return Promise.resolve({ rows: [] });
             });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
 
             const result = await BookingService.createBooking(createData);
 
@@ -65,9 +68,10 @@ describe('BookingService Logic and Ownership', () => {
         });
 
         it('should throw error if room is already booked (overlap)', async () => {
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [{ id: 99 }] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
+            mockClient.query.mockImplementation((queryText: string) => {
+                if (typeof queryText === 'string' && queryText.includes('SELECT id FROM bookings')) return Promise.resolve({ rows: [{ id: 99 }] });
+                return Promise.resolve({ rows: [] });
+            });
 
             await expect(BookingService.createBooking(createData))
                 .rejects.toThrow('Phòng đã có người đặt trong khoảng thời gian này');
@@ -106,12 +110,11 @@ describe('BookingService Logic and Ownership', () => {
         };
 
         it('should update booking successfully', async () => {
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({
-                rows: [{ id: bookingId, ...updateData }]
-            }); // Update
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
+            mockClient.query.mockImplementation((queryText: string) => {
+                if (typeof queryText === 'string' && queryText.includes('SELECT id FROM bookings')) return Promise.resolve({ rows: [] });
+                if (typeof queryText === 'string' && queryText.includes('UPDATE bookings')) return Promise.resolve({ rows: [{ id: bookingId, ...updateData }] });
+                return Promise.resolve({ rows: [] });
+            });
 
             const result = await BookingService.updateBooking(bookingId, userId, updateData);
 
@@ -124,10 +127,11 @@ describe('BookingService Logic and Ownership', () => {
         });
 
         it('should throw error if unauthorized or not found', async () => {
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
-            mockClient.query.mockResolvedValueOnce({ rows: [] });
+            mockClient.query.mockImplementation((queryText: string) => {
+                if (typeof queryText === 'string' && queryText.includes('SELECT id FROM bookings')) return Promise.resolve({ rows: [] });
+                if (typeof queryText === 'string' && queryText.includes('UPDATE bookings')) return Promise.resolve({ rows: [] });
+                return Promise.resolve({ rows: [] });
+            });
 
             await expect(BookingService.updateBooking(bookingId, userId, updateData))
                 .rejects.toThrow('Booking not found or unauthorized');

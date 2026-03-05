@@ -1,0 +1,33 @@
+[1m[31m  [1m● [22m[1mBooking API Integration Tests › POST /api/bookings › should create a booking successfully[39m[22m
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m201[39m
+    Received: [31m400[39m
+[2m[22m
+[2m    [0m [90m 63 |[39m                 })[33m;[39m[22m
+[2m     [90m 64 |[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 65 |[39m             expect(res[33m.[39mstatus)[33m.[39mtoBe([35m201[39m)[33m;[39m[22m
+[2m     [90m    |[39m                                [31m[1m^[22m[2m[39m[22m
+[2m     [90m 66 |[39m             expect(res[33m.[39mbody[33m.[39muser_id)[33m.[39mtoBe(userId)[33m;[39m[22m
+[2m     [90m 67 |[39m         })[33m;[39m[22m
+[2m     [90m 68 |[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/tests/booking.integration.test.ts[39m[0m[2m:65:32)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mBooking API Integration Tests › POST /api/bookings › should fail if room is occupied (Pessimistic Lock Check)[39m[22m
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+    Expected substring: [32m"Phòng đã có người đặt"[39m
+    Received string:    [31m"Cannot read properties of undefined (reading 'room_id')"[39m
+[2m[22m
+[2m    [0m [90m 92 |[39m[22m
+[2m     [90m 93 |[39m             expect(res[33m.[39mstatus)[33m.[39mtoBe([35m400[39m)[33m;[39m[22m
+[2m    [31m[1m>[22m[2m[39m[90m 94 |[39m             expect(res[33m.[39mbody[33m.[39mmessage)[33m.[39mtoContain([32m'Phòng đã có người đặt'[39m)[33m;[39m[22m
+[2m     [90m    |[39m                                      [31m[1m^[22m[2m[39m[22m
+[2m     [90m 95 |[39m         })[33m;[39m[22m
+[2m     [90m 96 |[39m     })[33m;[39m[22m
+[2m     [90m 97 |[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36msrc/tests/booking.integration.test.ts[39m[0m[2m:94:38)[22m[2m[22m

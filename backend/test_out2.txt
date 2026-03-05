@@ -1,0 +1,120 @@
+﻿  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒæÑ sync secrets across teammates & machines: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: Γ£à audit secrets and track compliance: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":50,"time":1772693518943,"pid":24308,"hostname":"LAPTOP-BFL26ONS","err":{"type":"TypeError","message":"Cannot read properties of undefined (reading 'room_id')","stack":"TypeError: Cannot read properties of undefined (reading 'room_id')\n    at createBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:30:66)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"},"msg":"Create booking error:"}
+[0mPOST /api/v1/bookings [33m400[0m 7.978 ms - 85[0m
+[0mPOST /api/v1/bookings [33m401[0m 0.512 ms - 53[0m
+{"level":50,"time":1772693518964,"pid":24308,"hostname":"LAPTOP-BFL26ONS","err":{"type":"TypeError","message":"Cannot read properties of undefined (reading 'room_id')","stack":"TypeError: Cannot read properties of undefined (reading 'room_id')\n    at createBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:30:66)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"},"msg":"Create booking error:"}
+[0mPOST /api/v1/bookings [33m400[0m 1.465 ms - 85[0m
+{"level":50,"time":1772693518970,"pid":24308,"hostname":"LAPTOP-BFL26ONS","err":{"type":"TypeError","message":"Cannot read properties of undefined (reading 'rows')","stack":"TypeError: Cannot read properties of undefined (reading 'rows')\n    at Function.getBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\services\\booking.service.ts:124:20)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at updateBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:104:32)"},"msg":"Update booking error:"}
+[0mPUT /api/v1/bookings/100 [33m400[0m 3.998 ms - 82[0m
+node.exe : FAIL 
+src/tests/booking.integration.test.ts
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: 
+    (FAIL src/tests/...gration.test.ts:Str  
+  ing) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommand 
+   Error
+ 
+  Booking API Integration Tests
+    POST /api/bookings
+      ├ù should create a booking 
+successfully (36 ms)
+      ΓêÜ should fail if unauthorized (6 ms)
+      ├ù should fail if room is occupied 
+(Pessimistic Lock Check) (5 ms)
+    PUT /api/bookings/:id
+      ΓêÜ should fail if trying to update 
+someone else's booking (8 ms)
+
+  ΓùÅ Booking API Integration Tests ΓÇ║ 
+POST /api/bookings ΓÇ║ should create a 
+booking successfully
+
+    expect(received).toBe(expected) // 
+Object.is equality
+
+    Expected: 201
+    Received: 400
+
+    [0m [90m 64 |[39m                 
+})[33m;[39m
+     [90m 65 |[39m
+    [31m[1m>[22m[39m[90m 66 |[39m     
+        expect(res[33m.[39mstatus)[33m.[
+39mtoBe([35m201[39m)[33m;[39m
+     [90m    |[39m                        
+        [31m[1m^[22m[39m
+     [90m 67 |[39m             expect(res
+[33m.[39mbody[33m.[39muser_id)[33m.[39m
+toBe(userId)[33m;[39m
+     [90m 68 |[39m         })[33m;[39m
+     [90m 69 |[39m[0m
+
+      at Object.<anonymous> (src/tests/booki
+ng.integration.test.ts:66:32)
+
+  ΓùÅ Booking API Integration Tests ΓÇ║ 
+POST /api/bookings ΓÇ║ should fail if room 
+is occupied (Pessimistic Lock Check)
+
+    expect(received).toContain(expected) // 
+indexOf
+
+    Expected substring: "Ph├▓ng ─æ├ú c├│ 
+ng╞░ß╗¥i ─æß║╖t"
+    Received string:    "Cannot read 
+properties of undefined (reading 'room_id')"
+
+    [0m [90m 93 |[39m
+     [90m 94 |[39m             expect(res
+[33m.[39mstatus)[33m.[39mtoBe([35m400[3
+9m)[33m;[39m
+    [31m[1m>[22m[39m[90m 95 |[39m     
+        expect(res[33m.[39mbody[33m.[39m
+message)[33m.[39mtoContain([32m'Ph├▓ng 
+─æ├ú c├│ ng╞░ß╗¥i ─æß║╖t'[39m)[33m;[39m
+     [90m    |[39m                        
+              [31m[1m^[22m[39m
+     [90m 96 |[39m         })[33m;[39m
+     [90m 97 |[39m     })[33m;[39m
+     [90m 98 |[39m[0m
+
+      at Object.<anonymous> (src/tests/booki
+ng.integration.test.ts:95:38)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 2 passed, 4 total
+Snapshots:   0 total
+Time:        3.427 s
+Ran all test suites matching 
+/src\\tests\\booking.integration.test.ts/i.
+Force exiting Jest: Have you considered 
+using `--detectOpenHandles` to detect async 
+operations that kept running after all 
+tests finished?

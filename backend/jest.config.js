@@ -3,6 +3,7 @@ module.exports = {
     testEnvironment: 'node',
     roots: ['<rootDir>/src'],
     testMatch: ['**/*.test.ts'],
+    setupFiles: ['dotenv/config'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
     },

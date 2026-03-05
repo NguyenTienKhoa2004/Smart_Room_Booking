@@ -1,0 +1,255 @@
+﻿  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒæÑ sync secrets across teammates & machines: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":50,"time":1772690672748,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Database error","stack":"Error: Database error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:107:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error getting all users:"}
+{"level":50,"time":1772690672758,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"User not found","stack":"Error: User not found\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:150:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error getting user by ID:"}
+{"level":50,"time":1772690672759,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Database error","stack":"Error: Database error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:165:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error getting user by ID:"}
+{"level":50,"time":1772690672762,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"User not found","stack":"Error: User not found\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:227:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error banning user:"}
+{"level":50,"time":1772690672763,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"User is already banned","stack":"Error: User is already banned\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:244:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error banning user:"}
+{"level":50,"time":1772690672764,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Database error","stack":"Error: Database error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:261:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error banning user:"}
+{"level":50,"time":1772690672766,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"User not found","stack":"Error: User not found\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:306:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error unbanning user:"}
+{"level":50,"time":1772690672769,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"User is not banned","stack":"Error: User is not banned\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:321:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error unbanning user:"}
+{"level":50,"time":1772690672770,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Database error","stack":"Error: Database error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:336:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error unbanning user:"}
+{"level":50,"time":1772690672772,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Database error","stack":"Error: Database error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.controller.test.ts:372:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Error getting user stats:"}
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  load multiple .env files with { path: ['.env.local', '.env'] }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":50,"time":1772690673190,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Email service error","stack":"Error: Email service error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.service.test.ts:142:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Failed to send ban notification email:"}
+{"level":50,"time":1772690673193,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Email service error","stack":"Error: Email service error\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\adminUser.service.test.ts:196:17)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Failed to send unban notification email:"}
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":30,"time":1772690673682,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Γ£à Redis connected successfully"}
+  console.time
+    [Req-i8dys] Wait For Redis Lock: 13 ms
+
+      at src/services/booking.service.ts:33:25
+
+  console.time
+    [Req-i8dys] Database Transaction: 18 ms
+
+      at src/services/booking.service.ts:95:29
+
+  console.time
+    [Req-i8dys] Total Time: 34 ms
+
+      at src/services/booking.service.ts:96:29
+
+  console.time
+    [Req-w75zpd] Wait For Redis Lock: 24 ms
+
+      at src/services/booking.service.ts:33:25
+
+  console.time
+    [Req-w75zpd] Database Transaction: 0 ms
+
+      at src/services/booking.service.ts:95:29
+
+  console.time
+    [Req-w75zpd] Total Time: 25 ms
+
+      at src/services/booking.service.ts:96:29
+
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒæÑ sync secrets across teammates & machines: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒôí add observability to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":30,"time":1772690676084,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Γ£à Redis connected successfully"}
+  console.time
+    [Req-93zlug] Wait For Redis Lock: 4 ms
+
+      at src/services/booking.service.ts:33:25
+
+  console.time
+    [Req-93zlug] Database Transaction: 2 ms
+
+      at src/services/booking.service.ts:95:29
+
+  console.time
+    [Req-93zlug] Total Time: 7 ms
+
+      at src/services/booking.service.ts:96:29
+
+{"level":50,"time":1772690676122,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Socket.io not initialized!","stack":"Error: Socket.io not initialized!\n    at getIO (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\socket.ts:30:15)\n    at createBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:30:18)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"},"msg":"Create booking error:"}
+[0mPOST /api/v1/bookings [33m400[0m 20.315 ms - 56[0m
+[0mPOST /api/v1/bookings [33m401[0m 0.672 ms - 53[0m
+  console.time
+    [Req-wn0t8r] Wait For Redis Lock: 1 ms
+
+      at src/services/booking.service.ts:33:25
+
+  console.time
+    [Req-wn0t8r] Database Transaction: 0 ms
+
+      at src/services/booking.service.ts:95:29
+
+  console.time
+    [Req-wn0t8r] Total Time: 2 ms
+
+      at src/services/booking.service.ts:96:29
+
+{"level":50,"time":1772690676160,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Ph├▓ng ─æ├ú c├│ ng╞░ß╗¥i ─æß║╖t trong khoß║úng thß╗¥i gian n├áy","stack":"Error: Ph├▓ng ─æ├ú c├│ ng╞░ß╗¥i ─æß║╖t trong khoß║úng thß╗¥i gian n├áy\n    at C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\services\\booking.service.ts:51:31\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at Redlock.using (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\redlock\\src\\index.ts:742:14)\n    at Function.createBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\services\\booking.service.ts:32:20)\n    at createBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:22:28)"},"msg":"Create booking error:"}
+[0mPOST /api/v1/bookings [33m400[0m 10.654 ms - 93[0m
+{"level":50,"time":1772690676173,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Booking not found","stack":"Error: Booking not found\n    at Function.getBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\services\\booking.service.ts:125:19)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at updateBooking (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\controllers\\booking.controller.ts:104:32)"},"msg":"Update booking error:"}
+[0mPUT /api/v1/bookings/100 [33m400[0m 2.594 ms - 47[0m
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":30,"time":1772690676472,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Γ£à Redis connected successfully"}
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒæÑ sync secrets across teammates & machines: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöä add secrets lifecycle management: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":30,"time":1772690677312,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Γ£à Redis connected successfully"}
+[0mPOST /api/v1/auth/register [32m201[0m 0.961 ms - 177[0m
+{"level":50,"time":1772690677323,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Registration failed","stack":"Error: Registration failed\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\auth.controller.test.ts:37:67)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Register error:"}
+[0mPOST /api/v1/auth/register [33m400[0m 1.483 ms - 49[0m
+[0mPOST /api/v1/auth/login [32m200[0m 0.954 ms - 148[0m
+{"level":50,"time":1772690677334,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Invalid email or password","stack":"Error: Invalid email or password\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\auth.controller.test.ts:62:64)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Login error:"}
+[0mPOST /api/v1/auth/login [33m401[0m 0.792 ms - 55[0m
+[0mPOST /api/v1/auth/logout [32m200[0m 0.790 ms - 52[0m
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒôí add observability to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":50,"time":1772690678364,"pid":10644,"hostname":"LAPTOP-BFL26ONS","err":{"type":"Error","message":"Upload failed","stack":"Error: Upload failed\n    at Object.<anonymous> (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\src\\tests\\upload.controller.test.ts:57:67)\n    at Promise.then.completed (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\utils.js:231:10)\n    at _callCircusTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:316:40)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at processImmediate (node:internal/timers:479:9)\n    at _runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:252:3)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:126:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at _runTestsForDescribeBlock (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:121:9)\n    at run (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\run.js:71:3)\n    at runAndTransformResultsToJestFormat (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapterInit.js:122:21)\n    at jestAdapter (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:19)\n    at runTestInternal (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:367:16)\n    at runTest (C:\\Users\\as\\OneDrive\\Desktop\\Smart-Room-Booking\\backend\\node_modules\\jest-runner\\build\\runTest.js:444:34)"},"msg":"Upload Error:"}
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (16) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒùé∩╕Å backup and recover secrets: https://dotenvx.com/ops
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ≡ƒöÉ encrypt with Dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+  console.log
+    [dotenv@17.2.3] injecting env (0) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+{"level":30,"time":1772690679876,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Confirmation email sent to test@test.com"}
+{"level":30,"time":1772690679878,"pid":10644,"hostname":"LAPTOP-BFL26ONS","msg":"Γ£à Redis connected successfully"}
+[0mPOST /api/v1/admin/upload [32m200[0m 5.021 ms - 112[0m
+[0mPOST /api/v1/admin/upload [33m400[0m 0.445 ms - 46[0m
