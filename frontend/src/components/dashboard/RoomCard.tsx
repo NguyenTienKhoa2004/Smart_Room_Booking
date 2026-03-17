@@ -6,7 +6,7 @@ interface RoomCardProps {
     onBook: (room: Room) => void;
 }
 
-const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
+const RoomCard = React.memo(({ room, onBook }: RoomCardProps) => {
     const getStatusColor = (status: Room['status']) => {
         switch (status) {
             case 'available': return 'bg-green-100 text-green-800';
@@ -72,6 +72,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onBook }) => {
             </div>
         </div>
     );
-};
+});
 
 export default RoomCard;

@@ -18,7 +18,22 @@ export class AuthController {
             }
 
             const result = await UserService.register({ email, password, full_name });
-            res.status(201).json(result);
+
+            res.cookie('refreshToken', result.data.refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+            });
+
+            res.status(201).json({
+                success: true,
+                data: {
+                    user: result.data.user,
+                    accessToken: result.data.accessToken,
+                },
+                message: result.message,
+            });
         } catch (error: any) {
             logger.error('Register error:', error);
             res.status(400).json({

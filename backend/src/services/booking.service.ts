@@ -60,7 +60,7 @@ export class BookingService {
 
                     await client.query('COMMIT');
 
-                    await RoomService.invalidateCache();
+                    await RoomService.invalidateCache(room_id);
 
                     const infoQuery = `
                         SELECT u.email, r.name as room_name 
@@ -168,7 +168,7 @@ export class BookingService {
 
                     await client.query('COMMIT');
 
-                    await RoomService.invalidateCache();
+                    await RoomService.invalidateCache(room_id);
 
                     return result.rows[0];
                 } catch (e) {
@@ -199,7 +199,7 @@ export class BookingService {
             throw new Error('Booking not found or unauthorized');
         }
 
-        await RoomService.invalidateCache();
+        await RoomService.invalidateCache(result.rows[0].room_id);
 
         return result.rows[0];
     }

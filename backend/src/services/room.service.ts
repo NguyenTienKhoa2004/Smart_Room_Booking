@@ -1,6 +1,9 @@
 import db from '../config/database';
 import redis from '../config/redis';
 import { Room, RoomFilter } from '../types/room.types';
+import { logger } from '../config/logger';
+
+const CACHE_TTL = 300;
 
 export class RoomService {
     static async getAllRooms(filters: RoomFilter): Promise<Room[]> {
@@ -21,7 +24,6 @@ export class RoomService {
 
         const params: any[] = [];
 
-        // Default time check to "now" if not provided, to determine status
         const now = new Date();
         const startTime = filters.start_time ? new Date(filters.start_time) : now;
         const endTime = filters.end_time ? new Date(filters.end_time) : new Date(now.getTime() + 60 * 60 * 1000); // +1 hour
@@ -57,7 +59,9 @@ export class RoomService {
 
         query += ` ORDER BY r.name ASC`;
 
-        const cacheKey = `rooms:available:${JSON.stringify(filters)}`;
+        const cacheKey = `rooms:available:${JSON.stringify(
+            Object.fromEntries(Object.entries(filters).sort())
+        )}`;
         const cachedData = await redis.get(cacheKey);
 
         if (cachedData) {
@@ -65,28 +69,71 @@ export class RoomService {
         }
 
         const result = await db.query(query, params);
+        const rooms: Room[] = result.rows;
 
-        await redis.set(cacheKey, JSON.stringify(result.rows), 'EX', 300);
+        await redis.set(cacheKey, JSON.stringify(rooms), 'EX', CACHE_TTL);
 
-        return result.rows;
+        const pipeline = redis.pipeline();
+        const roomIds = rooms.map((r) => r.id);
+        for (const roomId of roomIds) {
+            const trackingKey = `room_keys:${roomId}`;
+            pipeline.sadd(trackingKey, cacheKey);
+            pipeline.expire(trackingKey, CACHE_TTL + 10);
+        }
+        pipeline.exec().catch((err) => logger.error('Failed to track cache keys:', err));
+
+        return rooms;
     }
 
-    static async invalidateCache(): Promise<void> {
-        const keys = await redis.keys('rooms:available:*');
-        if (keys.length > 0) {
-            await redis.del(keys);
+    static async invalidateCache(roomId?: number): Promise<void> {
+        if (roomId) {
+            const trackingKey = `room_keys:${roomId}`;
+            const keys = await redis.smembers(trackingKey);
+            if (keys.length > 0) {
+                const pipeline = redis.pipeline();
+                pipeline.del(...keys);
+                pipeline.del(trackingKey);
+                await pipeline.exec();
+            }
+        } else {
+            const keys = await redis.keys('rooms:available:*');
+            if (keys.length > 0) {
+                await redis.del(keys);
+            }
+            const trackingKeys = await redis.keys('room_keys:*');
+            if (trackingKeys.length > 0) {
+                await redis.del(trackingKeys);
+            }
+            await redis.del('rooms:amenities');
         }
     }
 
     static async getAmenities(): Promise<string[]> {
+        const cacheKey = 'rooms:amenities';
+        const cachedData = await redis.get(cacheKey);
+
+        if (cachedData) {
+            return JSON.parse(cachedData);
+        }
+
         const query = `
             SELECT DISTINCT unnest(equipment) as amenity 
             FROM rooms 
             ORDER BY amenity ASC
         `;
         const result = await db.query(query);
-        return result.rows.map(row => row.amenity);
+        const amenities = result.rows.map(row => row.amenity);
+
+        await redis.set(cacheKey, JSON.stringify(amenities), 'EX', 86400);
+
+        return amenities;
     }
+    static async getRoomByName(name: string): Promise<Room | null> {
+        const query = 'SELECT * FROM rooms WHERE name = $1';
+        const result = await db.query(query, [name]);
+        return result.rows[0] || null;
+    }
+
     static async createRoom(data: Partial<Room>): Promise<Room> {
         const query = `
             INSERT INTO rooms (name, capacity, floor, equipment, image_url, status)

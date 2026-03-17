@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Navbar from "../components/Navbar";
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
@@ -73,7 +73,7 @@ const Dashboard = () => {
     }, [socket, filters]);
 
 
-    const handleBookRoom = async (room: Room) => {
+    const handleBookRoom = useCallback(async (room: Room) => {
         if (!filters.start_time || !filters.end_time) {
             alert('Please select a start and end time to book a room.');
             return;
@@ -96,9 +96,9 @@ const Dashboard = () => {
                 alert(`Booking failed: ${error.response?.data?.message || 'Unknown error'}`);
             }
         }
-    };
+    }, [filters, fetchRooms, fetchBookings]);
 
-    const handleCancelBooking = async (bookingId: number) => {
+    const handleCancelBooking = useCallback(async (bookingId: number) => {
         if (confirm('Are you sure you want to cancel this booking?')) {
             try {
                 await cancelBooking(bookingId);
@@ -109,7 +109,7 @@ const Dashboard = () => {
                 alert('Failed to cancel booking');
             }
         }
-    };
+    }, [fetchBookings, fetchRooms]);
 
     if (authLoading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 

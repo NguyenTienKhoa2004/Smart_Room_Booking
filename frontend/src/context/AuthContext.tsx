@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import api, { setAuthTokens, setAuthCallbacks } from '../services/api';
+import api, { setAuthTokens, setAuthCallbacks, getCurrentUser } from '../services/api';
 
 interface User {
     id: number;
@@ -29,8 +29,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = useCallback(async () => {
         setAccessToken(null);
         setUser(null);
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
         setAuthTokens(null);
         try {
             await api.post('/auth/logout');
@@ -46,19 +44,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const newAccessToken = response.data.data.accessToken;
             if (newAccessToken) {
                 setAccessToken(newAccessToken);
-                localStorage.setItem('accessToken', newAccessToken);
                 setAuthTokens(newAccessToken);
                 return newAccessToken;
             }
             return null;
         } catch (error) {
-            console.error('Failed to refresh access token:', error);
+            console.warn('Silent refresh failed (likely no valid refresh cookie).');
             logout();
             return null;
         } finally {
             setIsAuthenticating(false);
         }
-    }, [logout, setAccessToken]);
+    }, [logout]);
 
     useEffect(() => {
         setAuthCallbacks(refreshAccessToken, logout);
@@ -68,39 +65,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const initAuth = async () => {
             setIsLoading(true);
-            const storedAccessToken = localStorage.getItem('accessToken');
-            const storedUser = localStorage.getItem('user');
-
-            if (storedAccessToken && storedUser) {
-                setAccessToken(storedAccessToken);
-                setAuthTokens(storedAccessToken);
-                try {
-                    setUser(JSON.parse(storedUser));
-                } catch (e) {
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('user');
-                    setAuthTokens(null);
+            try {
+                // Attempt to silently refresh token on app load
+                const newAccessToken = await refreshAccessToken();
+                if (newAccessToken) {
+                    // If we got a token, fetch the user profile
+                    const userResponse = await getCurrentUser();
+                    if (userResponse.success) {
+                        setUser(userResponse.data);
+                    } else {
+                        logout(); // Profile fetch failed despite valid token
+                    }
                 }
-
-                const refreshedToken = await refreshAccessToken();
-                if (!refreshedToken) {
-                    logout();
-                }
-            } else {
-                setAuthTokens(null);
+            } catch (error) {
+                console.error('Initial authentication check failed:', error);
+                logout();
+            } finally {
+                setIsLoading(false);
             }
-
-            setIsLoading(false);
         };
-
         initAuth();
     }, [refreshAccessToken, logout]);
 
     const login = (newAccessToken: string, newUser: User) => {
         setAccessToken(newAccessToken);
         setUser(newUser);
-        localStorage.setItem('accessToken', newAccessToken);
-        localStorage.setItem('user', JSON.stringify(newUser));
         setAuthTokens(newAccessToken);
     };
 

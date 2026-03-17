@@ -17,7 +17,8 @@
     "load:setup": "ts-node load-tests/setup-load-test.ts",
     "load:test": "artillery run load-tests/artillery.yml",
     "load:report": "artillery run --output load-tests/report.json load-tests/artillery.yml && artillery report load-tests/report.json",
-    "load:quick": "artillery quick --count 100 --num 10 http://localhost:5000/health"
+    "load:quick": "artillery quick --count 100 --num 10 http://localhost:5000/health",
+    "benchmark:cache": "ts-node src/scripts/benchmarkCache.ts"
   },
   "keywords": [],
   "author": "",

@@ -8,7 +8,7 @@ interface RoomFilterProps {
     onFilterChange: (newFilters: RoomFilterState) => void;
 }
 
-const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
+const RoomFilter = React.memo(({ filters, onFilterChange }: RoomFilterProps) => {
     const [availableEquipment, setAvailableEquipment] = useState<string[]>([]);
 
     useEffect(() => {
@@ -102,6 +102,6 @@ const RoomFilter: React.FC<RoomFilterProps> = ({ filters, onFilterChange }) => {
             </div>
         </div>
     );
-};
+});
 
 export default RoomFilter;

@@ -115,4 +115,9 @@ export const askRag = async (question: string, topK: number = 5) => {
     return response.data;
 };
 
+export const getCurrentUser = async () => {
+    const response = await api.get('/auth/current-user');
+    return response.data;
+};
+
 export default api;

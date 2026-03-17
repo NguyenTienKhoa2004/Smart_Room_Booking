@@ -14,9 +14,6 @@ export interface AdminUserResponse {
 }
 
 export class AdminUserService {
-    /**
-     * Get all users with pagination
-     */
     static async getAllUsers(page: number = 1, limit: number = 10): Promise<{
         users: AdminUserResponse[];
         total: number;
@@ -44,9 +41,6 @@ export class AdminUserService {
         };
     }
 
-    /**
-     * Get user by ID with full details
-     */
     static async getUserById(userId: number): Promise<AdminUserResponse> {
         const result = await db.query(
             `SELECT id, email, full_name, role, is_banned, created_at, updated_at 
@@ -62,9 +56,6 @@ export class AdminUserService {
         return result.rows[0];
     }
 
-    /**
-     * Ban a user
-     */
     static async banUser(userId: number): Promise<AdminUserResponse> {
         const userCheck = await db.query('SELECT id, email, full_name, is_banned FROM users WHERE id = $1', [userId]);
 
@@ -94,9 +85,6 @@ export class AdminUserService {
         return result.rows[0];
     }
 
-    /**
-     * Unban a user
-     */
     static async unbanUser(userId: number): Promise<AdminUserResponse> {
         const userCheck = await db.query('SELECT id, email, full_name, is_banned FROM users WHERE id = $1', [userId]);
 
@@ -126,10 +114,6 @@ export class AdminUserService {
 
         return result.rows[0];
     }
-
-    /**
-     * Get user statistics
-     */
     static async getUserStats(): Promise<{
         totalUsers: number;
         bannedUsers: number;

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { uploadDocument, listDocuments, deleteDocument } from '../../controllers/adminRag.controller';
+import { uploadDocument, listDocuments, deleteDocument, retrieveDebug } from '../../controllers/adminRag.controller';
 
 const router = Router();
 
@@ -9,7 +9,6 @@ router.get('/docs', listDocuments);
 router.delete('/docs/:id', deleteDocument);
 
 // Day 4 Retrieval Debug Endpoint
-import { retrieveDebug } from '../../controllers/adminRag.controller';
 router.get('/retrieve', retrieveDebug);
 
 export default router;

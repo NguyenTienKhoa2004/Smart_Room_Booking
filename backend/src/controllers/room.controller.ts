@@ -48,7 +48,39 @@ export class RoomController {
     }
     static async createRoom(req: Request, res: Response): Promise<void> {
         try {
-            const room = await RoomService.createRoom(req.body);
+            const { name, capacity, floor, equipment, image_url, status } = req.body;
+
+            if (!name || typeof name !== 'string' || name.trim() === '') {
+                res.status(400).json({ success: false, message: 'Room name is required and must be a non-empty string.' });
+                return;
+            }
+
+            if (!capacity || typeof capacity !== 'number' || capacity <= 0) {
+                res.status(400).json({ success: false, message: 'Capacity must be a positive number.' });
+                return;
+            }
+
+            if (!floor || typeof floor !== 'number' || floor < 1 || floor > 5) {
+                res.status(400).json({ success: false, message: 'Floor must be a number between 1 and 5.' });
+                return;
+            }
+
+            const existingRoom = await RoomService.getRoomByName(name.trim());
+            if (existingRoom) {
+                res.status(400).json({ success: false, message: 'Room name already exists.' });
+                return;
+            }
+
+            const roomData = {
+                name: name.trim(),
+                capacity,
+                floor,
+                equipment,
+                image_url,
+                status
+            };
+
+            const room = await RoomService.createRoom(roomData);
             res.status(201).json({
                 success: true,
                 message: 'Room created successfully',

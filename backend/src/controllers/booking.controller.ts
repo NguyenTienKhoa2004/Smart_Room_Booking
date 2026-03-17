@@ -11,11 +11,8 @@ export class BookingController {
             const { room_id, title, start_time, end_time } = req.body;
             const user_id = req.user?.userId;
 
-            if (!room_id || !title || !start_time || !end_time || !user_id) {
-                res.status(400).json({
-                    success: false,
-                    message: 'Room ID, title, start time, end time, and user ID are required',
-                });
+            if (!user_id) {
+                res.status(401).json({ success: false, message: 'Unauthorized' });
                 return;
             }
 
@@ -92,14 +89,6 @@ export class BookingController {
 
             ValidationUtils.validateBookingId(id);
             const { room_id, title, start_time, end_time } = req.body;
-
-            if (!room_id || !title || !start_time || !end_time) {
-                res.status(400).json({
-                    success: false,
-                    message: 'Room ID, title, start time, and end time are required',
-                });
-                return;
-            }
 
             const oldBooking = await BookingService.getBooking(Number(id), user_id);
 

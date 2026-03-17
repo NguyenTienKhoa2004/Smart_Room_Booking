@@ -31,6 +31,9 @@ describe('AuthController', () => {
             expect(res.status).toBe(201);
             expect(res.body.success).toBe(true);
             expect(res.body.data.user.email).toBe('test@example.com');
+            expect(res.body.data.accessToken).toBeDefined();
+            expect(res.body.data.refreshToken).toBeUndefined();
+            expect(res.get('Set-Cookie')).toBeDefined();
         });
 
         it('should return 400 on service error', async () => {
@@ -55,6 +58,7 @@ describe('AuthController', () => {
 
             expect(res.status).toBe(200);
             expect(res.body.data.accessToken).toBe('mockAccess');
+            expect(res.body.data.refreshToken).toBeUndefined();
             expect(res.get('Set-Cookie')).toBeDefined();
         });
 

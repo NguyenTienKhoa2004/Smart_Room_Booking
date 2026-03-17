@@ -53,12 +53,23 @@ const AdminRoomManagement = () => {
 
     const handleCreateRoom = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!newRoom.name.trim()) {
+            return alert('Room name is required.');
+        }
+        if (Number(newRoom.capacity) <= 0) {
+            return alert('Capacity must be a positive number.');
+        }
+        if (Number(newRoom.floor) < 1 || Number(newRoom.floor) > 5) {
+            return alert('Floor must be between 1 and 5.');
+        }
+
         try {
             const roomData = {
-                name: newRoom.name,
+                name: newRoom.name.trim(),
                 capacity: Number(newRoom.capacity),
                 floor: Number(newRoom.floor),
-                equipment: newRoom.equipment.split(',').map(s => s.trim()),
+                equipment: newRoom.equipment.split(',').map(s => s.trim()).filter(s => s !== ''),
                 image_url: newRoom.uploadedImage || undefined,
                 is_active: true
             };
@@ -70,9 +81,10 @@ const AdminRoomManagement = () => {
                 name: '', capacity: 0, floor: 1,
                 equipment: '', imageUrl: '', uploadedImage: ''
             });
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert('Failed to create room');
+            const errorMessage = err.response?.data?.message || 'Failed to create room';
+            alert(errorMessage);
         }
     };
 
@@ -101,7 +113,7 @@ const AdminRoomManagement = () => {
                     </div>
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+                        className="inline-flex items-center px-6 py-2.5 border border-transparent rounded-full shadow-md hover:shadow-lg text-sm font-medium text-white transition-all duration-300 bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
                     >
                         <Plus className="h-5 w-5 mr-2" />
                         Add New Room
@@ -167,103 +179,117 @@ const AdminRoomManagement = () => {
 
             {/* Add Room Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-                        <div className="p-6 border-b border-gray-100">
-                            <h2 className="text-xl font-bold text-gray-900">Add New Room</h2>
-                        </div>
-                        <form onSubmit={handleCreateRoom} className="p-6 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Room Name</label>
-                                <input
-                                    type="text"
-                                    required
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
-                                    value={newRoom.name}
-                                    onChange={e => setNewRoom({ ...newRoom, name: e.target.value })}
-                                />
+                <>
+                    <style>{`
+                        @keyframes modalFadeIn {
+                            from { opacity: 0; }
+                            to { opacity: 1; }
+                        }
+                        @keyframes modalSlideUp {
+                            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+                            to { opacity: 1; transform: translateY(0) scale(1); }
+                        }
+                        .animate-modal-bg { animation: modalFadeIn 0.3s ease-out forwards; }
+                        .animate-modal-content { animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+                    `}</style>
+                    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-modal-bg">
+                        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-modal-content border border-white/20">
+                            <div className="p-6 border-b border-gray-100">
+                                <h2 className="text-xl font-bold text-gray-900">Add New Room</h2>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <form onSubmit={handleCreateRoom} className="p-6 space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Capacity</label>
-                                    <input
-                                        type="number"
-                                        required
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
-                                        value={newRoom.capacity}
-                                        onChange={e => setNewRoom({ ...newRoom, capacity: Number(e.target.value) })}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">Floor</label>
-                                    <input
-                                        type="number"
-                                        required
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
-                                        value={newRoom.floor}
-                                        onChange={e => setNewRoom({ ...newRoom, floor: Number(e.target.value) })}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Equipment (comma separated)</label>
-                                <input
-                                    type="text"
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
-                                    placeholder="Projector, Whiteboard, WiFi"
-                                    value={newRoom.equipment}
-                                    onChange={e => setNewRoom({ ...newRoom, equipment: e.target.value })}
-                                />
-                            </div>
-
-                            {/* Image Upload Section */}
-                            <div className="border-t pt-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Room Image</label>
-                                <div className="flex gap-2 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700">Room Name</label>
                                     <input
                                         type="text"
-                                        className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
-                                        placeholder="Paste image URL here"
-                                        value={newRoom.imageUrl}
-                                        onChange={e => setNewRoom({ ...newRoom, imageUrl: e.target.value })}
+                                        required
+                                        className="mt-1 block w-full rounded-full border-gray-300 shadow-sm focus:border-slate-800 focus:ring-slate-800 border p-2"
+                                        value={newRoom.name}
+                                        onChange={e => setNewRoom({ ...newRoom, name: e.target.value })}
                                     />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Capacity</label>
+                                        <input
+                                            type="number"
+                                            required
+                                            className="mt-1 block w-full rounded-full border-gray-300 shadow-sm focus:border-slate-800 focus:ring-slate-800 border p-2"
+                                            value={newRoom.capacity}
+                                            onChange={e => setNewRoom({ ...newRoom, capacity: Number(e.target.value) })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Floor</label>
+                                        <input
+                                            type="number"
+                                            required
+                                            className="mt-1 block w-full rounded-full border-gray-300 shadow-sm focus:border-slate-800 focus:ring-slate-800 border p-2"
+                                            value={newRoom.floor}
+                                            onChange={e => setNewRoom({ ...newRoom, floor: Number(e.target.value) })}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Equipment (comma separated)</label>
+                                    <input
+                                        type="text"
+                                        className="mt-1 block w-full rounded-full border-gray-300 shadow-sm focus:border-slate-800 focus:ring-slate-800 border p-2"
+                                        placeholder="Projector, Whiteboard, WiFi"
+                                        value={newRoom.equipment}
+                                        onChange={e => setNewRoom({ ...newRoom, equipment: e.target.value })}
+                                    />
+                                </div>
+
+                                {/* Image Upload Section */}
+                                <div className="border-t pt-4">
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Room Image</label>
+                                    <div className="flex gap-2 mb-2">
+                                        <input
+                                            type="text"
+                                            className="flex-1 rounded-full border-gray-300 shadow-sm focus:border-slate-800 focus:ring-slate-800 border p-2"
+                                            placeholder="Paste image URL here"
+                                            value={newRoom.imageUrl}
+                                            onChange={e => setNewRoom({ ...newRoom, imageUrl: e.target.value })}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={handleUploadFromUrl}
+                                            disabled={uploading || !newRoom.imageUrl}
+                                            className="px-6 py-2 bg-slate-100 text-slate-800 font-medium rounded-full hover:bg-slate-200 disabled:opacity-50 transition-colors"
+                                        >
+                                            {uploading ? '...' : 'Upload'}
+                                        </button>
+                                    </div>
+                                    {newRoom.uploadedImage && (
+                                        <div className="mt-2 relative w-full h-32 bg-gray-100 rounded-md overflow-hidden">
+                                            <img src={newRoom.uploadedImage} alt="Preview" className="w-full h-full object-cover" />
+                                            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 text-center">
+                                                Image Uploaded to S3
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="pt-6 flex justify-end gap-3">
                                     <button
                                         type="button"
-                                        onClick={handleUploadFromUrl}
-                                        disabled={uploading || !newRoom.imageUrl}
-                                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 disabled:opacity-50"
+                                        onClick={() => setIsAddModalOpen(false)}
+                                        className="px-6 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-full hover:bg-gray-50 hover:text-gray-900 shadow-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
                                     >
-                                        {uploading ? '...' : 'Upload'}
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-6 py-2.5 text-sm font-medium text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
+                                    >
+                                        Create Room
                                     </button>
                                 </div>
-                                {newRoom.uploadedImage && (
-                                    <div className="mt-2 relative w-full h-32 bg-gray-100 rounded-md overflow-hidden">
-                                        <img src={newRoom.uploadedImage} alt="Preview" className="w-full h-full object-cover" />
-                                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 text-center">
-                                            Image Uploaded to S3
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="pt-4 flex justify-end gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsAddModalOpen(false)}
-                                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                                >
-                                    Create Room
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

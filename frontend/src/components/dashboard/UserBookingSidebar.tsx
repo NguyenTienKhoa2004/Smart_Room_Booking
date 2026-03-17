@@ -7,9 +7,8 @@ interface UserBookingSidebarProps {
     isLoading: boolean;
 }
 
-const UserBookingSidebar: React.FC<UserBookingSidebarProps> = ({ bookings, onCancel, isLoading }) => {
+const UserBookingSidebar = React.memo(({ bookings, onCancel, isLoading }: UserBookingSidebarProps) => {
 
-    // Very basic formatting
     const formatDate = (dateStr: string) => {
         const date = new Date(dateStr);
         return date.toLocaleString('en-US', {
@@ -69,6 +68,6 @@ const UserBookingSidebar: React.FC<UserBookingSidebarProps> = ({ bookings, onCan
             )}
         </div>
     );
-};
+});
 
 export default UserBookingSidebar;
