@@ -89,13 +89,14 @@ const AdminRoomManagement = () => {
     };
 
     const handleDeleteRoom = async (id: number) => {
-        if (confirm('Are you sure you want to delete this room?')) {
+        if (confirm('Are you sure you want to deactivate this room? It will no longer be available for booking.')) {
             try {
                 await adminService.deleteRoom(id);
                 fetchRooms();
-            } catch (err) {
+            } catch (err: any) {
                 console.error(err);
-                alert('Failed to delete room');
+                const errorMessage = err.response?.data?.message || 'Failed to delete room';
+                alert(errorMessage);
             }
         }
     };

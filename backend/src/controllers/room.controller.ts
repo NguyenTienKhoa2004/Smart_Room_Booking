@@ -98,13 +98,25 @@ export class RoomController {
     static async deleteRoom(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
+            if (isNaN(Number(id))) {
+                res.status(400).json({ success: false, message: 'Invalid room ID' });
+                return;
+            }
             await RoomService.deleteRoom(Number(id));
             res.status(200).json({
                 success: true,
-                message: 'Room deleted successfully'
+                message: 'Room deactivated successfully'
             });
         } catch (error: any) {
             logger.error('Delete room error:', error);
+            if (error.message === 'Room not found') {
+                res.status(404).json({ success: false, message: error.message });
+                return;
+            }
+            if (error.message?.startsWith('Cannot delete room')) {
+                res.status(400).json({ success: false, message: error.message });
+                return;
+            }
             res.status(500).json({
                 success: false,
                 message: error.message || 'Failed to delete room'

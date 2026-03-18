@@ -46,7 +46,7 @@ const Home = () => {
             <section className="room-showcase">
                 <div className="showcase-container">
                     <div className="showcase-content">
-                        <h2 className="text-xl font-extrabold text-gray-900 sm:text-4xl">
+                        <h2 className="text-xl font-extrabold text-black sm:text-4xl">
                             Premium Spaces for Modern Teams
                         </h2>
                         <p className="mt-4 text-lg text-gray-500">
@@ -61,8 +61,8 @@ const Home = () => {
                                 { title: 'Privacy Focused', desc: 'Sound-proofed walls for confidential meetings.' }
                             ].map((feature, i) => (
                                 <div key={i} className="flex items-start gap-4">
-                                    <div className="shrink-0 h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center mt-1">
-                                        <div className="h-2 w-2 rounded-full bg-blue-600" />
+                                    <div className="shrink-0 h-6 w-6 rounded-full bg-slate-100 flex items-center justify-center mt-1">
+                                        <div className="h-2 w-2 rounded-full bg-slate-900" />
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>

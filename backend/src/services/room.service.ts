@@ -19,7 +19,7 @@ export class RoomService {
                 ELSE 'available'
             END as status
             FROM rooms r
-            WHERE 1=1
+            WHERE r.is_active = true
         `;
 
         const params: any[] = [];
@@ -155,8 +155,26 @@ export class RoomService {
     }
 
     static async deleteRoom(id: number): Promise<void> {
-        const query = 'DELETE FROM rooms WHERE id = $1';
-        await db.query(query, [id]);
-        await this.invalidateCache();
+        const activeBookingsQuery = `
+            SELECT COUNT(*) FROM bookings
+            WHERE room_id = $1
+            AND status = 'confirmed'
+            AND end_time > NOW()
+        `;
+        const activeBookingsResult = await db.query(activeBookingsQuery, [id]);
+        const activeCount = parseInt(activeBookingsResult.rows[0].count, 10);
+
+        if (activeCount > 0) {
+            throw new Error(`Cannot delete room: there are ${activeCount} active or upcoming booking(s) for this room.`);
+        }
+
+        const query = 'UPDATE rooms SET is_active = false WHERE id = $1 RETURNING id';
+        const result = await db.query(query, [id]);
+
+        if (result.rowCount === 0) {
+            throw new Error('Room not found');
+        }
+
+        await this.invalidateCache(id);
     }
 }

@@ -42,13 +42,10 @@
 .showcase-content h2 {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #111827;
+    color: #000000;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: #000000;
 }
 
 .showcase-content p {

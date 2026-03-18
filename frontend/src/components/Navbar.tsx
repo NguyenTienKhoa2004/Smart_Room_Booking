@@ -49,14 +49,14 @@ const Navbar = () => {
                             <>
                                 <Link
                                     to="/login"
-                                    className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
+                                    className="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 border border-gray-300 hover:border-gray-400 transition-all duration-300"
                                 >
                                     <LogIn className="h-4 w-4" />
                                     Sign In
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
+                                    className="px-6 py-2 rounded-full shadow-md hover:shadow-lg text-sm font-medium text-white flex items-center gap-2 transition-all duration-300 bg-linear-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
                                 >
                                     <User className="h-4 w-4" />
                                     Sign Up
